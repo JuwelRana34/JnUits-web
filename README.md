@@ -1,36 +1,186 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Next.js 15 Professional Starter
 
-## Getting Started
+A **production-ready, opinionated full-stack starter template** built with **Next.js 16.1.1 (App Router)**.
 
-First, run the development server:
+Pre-configured with the best modern tools for **Developer Experience (DX)** and **Performance**.
+
+**Perfect for:**
+SaaS • Dashboards • Scalable Web Applications
+
+---
+
+## ✨ Features
+
+* **Framework:** Next.js 15 (App Router) with TurboPack
+* **Language:** TypeScript for strict type safety
+* **Styling:** Tailwind CSS v3.4 + Shadcn UI (Radix Primitives)
+* **Authentication:** Ready for Better Auth (via `jr-auth-cli`)
+* **Database:** Prisma ORM (Pre-configured for MongoDB)
+* **Formatting:**
+
+  * Prettier
+  * `prettier-plugin-tailwindcss`
+  * Automatic Import Sorting
+* **Git Hooks:** Husky & Lint-Staged (auto-format on commit)
+* **Theming:** Dark / Light mode (`next-themes`)
+* **Icons:** Lucide React
+
+---
+
+## 🛠️ Tech Stack
+
+| Category                 | Technology                                        |
+| ------------------------ | ------------------------------------------------- |
+| **Core**                 | Next.js 15, React 19, TypeScript             |
+| **Styling**              | Tailwind CSS, Shadcn UI, Class Variance Authority |
+| **Database**             | Prisma ORM, MongoDB (Default)                     |
+| **Auth**                 | Better Auth                                       |
+| **Linting & Formatting** | ESLint, Prettier, Husky                           |
+
+---
+
+## 🚀 Getting Started
+
+Follow these steps to run the project locally.
+
+### 1️⃣ Clone the repository
+
+```bash
+git https://github.com/JuwelRana34/My-Starter-App
+cd My-Starter-App
+```
+
+### 2️⃣ Install dependencies
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+### 3️⃣ Setup Environment Variables
+
+Rename the example file and add your secrets:
+
+```bash
+cp .env.example .env.local
+```
+
+Open `.env.local` and fill in:
+
+* MongoDB connection string
+* Authentication secrets
+
+---
+
+### 4️⃣ Setup Database (Prisma)
+
+This template uses **MongoDB**, so migrations are not required.
+
+```bash
+npx prisma generate
+```
+
+> **Note:** Generating the Prisma Client is enough for MongoDB.
+
+---
+
+### 5️⃣ Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📂 Project Structure
 
-## Learn More
+```plaintext
+.
+├── app/                  # Next.js App Router
+│   ├── (auth)/           # Authentication Routes
+│   ├── api/              # API Routes
+│   ├── layout.tsx        # Root Layout
+│   └── page.tsx          # Home Page
+├── components/
+│   ├── ui/               # Shadcn UI Components
+│   └── theme-provider.tsx
+├── lib/
+│   ├── db.ts             # Global Prisma Client
+│   ├── utils.ts          # Tailwind Class Merger
+│   └── auth.ts           # Auth Configuration
+├── prisma/
+│   └── schema.prisma     # Database Schema (MongoDB)
+├── public/               # Static assets
+└── ...config files
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔐 Authentication
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project is pre-configured for **Better Auth**.
 
-## Deploy on Vercel
+To add or modify authentication features, use the integrated CLI:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npx jr-auth-cli add
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 💅 Code Quality & Formatting
+
+We use **Husky** and **Lint-Staged** to ensure consistent code quality.
+
+On every `git commit`, the following run automatically:
+
+* Prettier – Code formatting
+* Import Sorting
+* Tailwind Class Sorting
+* ESLint – Error checking
+
+You can also run linting manually:
+
+```bash
+npm run lint
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+1. Fork the project
+2. Create your feature branch
+
+   ```bash
+   git checkout -b feature/AmazingFeature
+   ```
+3. Commit your changes
+
+   ```bash
+   git commit -m "Add some AmazingFeature"
+   ```
+4. Push to the branch
+
+   ```bash
+   git push origin feature/AmazingFeature
+   ```
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+See the `LICENSE` file for details.
+
+---
+
+**Happy Coding! 💙**
