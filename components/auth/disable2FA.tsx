@@ -1,0 +1,16 @@
+import { authClient } from '@/lib/auth-client'
+
+const handleDisable2FA = async ({ password }: { password: string }) => {
+  if (!password) return
+
+  const { error } = await authClient.twoFactor.disable({
+    password: password,
+  })
+
+  if (!error) {
+    alert('২-ফ্যাক্টর অথেন্টিকেশন ডিজেবল করা হয়েছে।')
+    window.location.reload()
+  } else {
+    alert('ডিজেবল করতে সমস্যা হয়েছে: ' + error.message)
+  }
+}
