@@ -1,3 +1,9 @@
+import { TabsLine } from '@/components/shared/tabs'
+
 export default function page() {
-  return <div>page</div>
+  return (
+    <div>
+      <TabsLine />
+    </div>
+  )
 }
