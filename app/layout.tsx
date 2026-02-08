@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 
 import { ThemeProvider } from '@/components/features/theme-provider'
+import Footer from '@/components/shared/footer'
 import { Toaster } from '@/components/ui/sonner'
 
 import './globals.css'
@@ -37,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -66,6 +67,7 @@ export default function RootLayout({
             }
           />
         </ThemeProvider>
+        <Footer />
       </body>
     </html>
   )
