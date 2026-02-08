@@ -1,4 +1,4 @@
-import { authClient } from '@/lib/auth-client'
+import { authClient } from '@/lib/auth/auth-client'
 
 const handleDisable2FA = async ({ password }: { password: string }) => {
   if (!password) return

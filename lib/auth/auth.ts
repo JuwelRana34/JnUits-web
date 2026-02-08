@@ -2,14 +2,42 @@ import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
 import { admin, twoFactor } from 'better-auth/plugins'
 
-import prisma from './prismadb'
-import transporter from './sendmail'
+import prisma from '../prismadb'
+import transporter from '../sendmail'
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: 'mongodb',
   }),
-  emailAndPassword: { enabled: true, requireEmailVerification: true },
+
+  //NOTE: login method
+  emailAndPassword: {
+    enabled: true,
+    requireEmailVerification: true,
+  },
+
+  // NOTE: additional fields for user model
+  user: {
+    additionalFields: {
+      studentId: {
+        type: 'string',
+        input: true,
+        required: true,
+      },
+      department: {
+        type: 'string',
+        input: true,
+        required: true,
+      },
+      phoneNumber: {
+        type: 'string',
+        input: true,
+        required: true,
+      },
+    },
+  },
+
+  // NOTE: email verification configuration
   emailVerification: {
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
@@ -42,6 +70,7 @@ export const auth = betterAuth({
     },
   },
 
+  // NOTE: 2FA configuration
   plugins: [
     admin(),
     twoFactor({
@@ -71,12 +100,13 @@ export const auth = betterAuth({
     }),
   ],
 
+  // NOTE: session configuration with cookie caching
   session: {
     expiresIn: 60 * 60 * 24 * 7,
     updateAge: 60 * 60 * 24,
     cookieCache: {
       enabled: true,
-      maxAge: 5 * 60, // 5 minute por por database check korbe, majhkhaner somoy cache use hobe
+      maxAge: 5 * 60,
     },
   },
 })

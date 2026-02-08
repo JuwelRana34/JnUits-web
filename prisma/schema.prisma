@@ -17,7 +17,10 @@ model User {
   banned        Boolean?  @default(false)
   banReason     String?
   banExpires    DateTime?
-
+  studentId     String    @unique
+  department    String   
+  phoneNumber   String   
+  
   twoFactorEnabled Boolean   @default(false)
   secret     String? 
   backupCodes String? 
