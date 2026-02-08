@@ -34,6 +34,22 @@ export const auth = betterAuth({
         input: true,
         required: true,
       },
+      batch: {
+        type: 'string',
+        input: true,
+        required: true,
+      },
+
+      gender: {
+        type: 'string',
+        input: true,
+        required: true,
+      },
+      role: {
+        type: 'string',
+        defaultValue: 'USER',
+        input: false,
+      },
     },
   },
 
@@ -72,7 +88,10 @@ export const auth = betterAuth({
 
   // NOTE: 2FA configuration
   plugins: [
-    admin(),
+    admin({
+      adminRole: 'SUPER_ADMIN',
+      defaultRole: 'USER',
+    }),
     twoFactor({
       issuer: 'JnUIts',
       otpOptions: {

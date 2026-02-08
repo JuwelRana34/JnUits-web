@@ -16,6 +16,12 @@ export const authClient = createAuthClient({
         studentId: { type: 'string' },
         department: { type: 'string' },
         phoneNumber: { type: 'string' },
+        batch: { type: 'string' },
+        gender: { type: 'string' },
+        role: {
+          type: 'string',
+          defaultValue: 'USER',
+        },
       },
     }),
   ],
