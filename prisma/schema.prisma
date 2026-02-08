@@ -7,29 +7,54 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+enum UserRole {
+  USER
+  MEMBER
+  EXECUTIVE
+  ADMIN
+  SUPER_ADMIN
+}
+
+
+
 model User {
   id            String    @id @map("_id")
   name          String?
   email         String?   @unique
   emailVerified Boolean   @default(false)
   image         String?
-  role          String?   @default("member")
-  banned        Boolean?  @default(false)
+
+  role          UserRole  @default(USER)
+  membershipId  String?  @unique
+  isExecutive   Boolean?  @default(false) 
+
+  banned        Boolean   @default(false)
   banReason     String?
   banExpires    DateTime?
+
   studentId     String    @unique
-  department    String   
-  phoneNumber   String   
-  
-  twoFactorEnabled Boolean   @default(false)
-  secret     String? 
-  backupCodes String? 
+  department    String
+  batch         String?
+  gender        String?
+
+  phoneNumber   String
+  showPhone     Boolean   @default(false)
+  showEmail     Boolean   @default(false)
+
+  twoFactorEnabled Boolean @default(false)
+  secret           String?
+  backupCodes      String?
+
+  registrations    Registration[] 
+  projects         Project[]
+  posts            Post[]
+  accounts         Account[]     
+  sessions         Session[]     
+  twoFactor        TwoFactor?
+
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  accounts      Account[]
-  sessions      Session[]
-  twoFactor     TwoFactor[]
-  @@map("user")
 }
 
 model Account {
@@ -84,8 +109,72 @@ model TwoFactor {
     id          String    @id @map("_id")
     secret      String
     backupCodes String
-    userId      String
+    userId      String   @unique
     user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@map("twoFactor")
+}
+
+
+
+enum RegistrationType {
+  MEMBER_APPLY
+  EVENT_PARTICIPATION
+  WORKSHOP
+  BCC_COURSE
+}
+
+enum StatusType{
+APPROVED
+REJECTED
+PENDING
+}
+
+model Registration {
+  id            String           @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type        RegistrationType @default(MEMBER_APPLY) 
+  status      StatusType           @default(PENDING) 
+  
+  // ইভেন্টের ক্ষেত্রে কোন ইভেন্ট সেটার আইডি (অপশনাল)
+  eventId     String?          @db.ObjectId
+  event       Event?           @relation(fields: [eventId], references: [id], onDelete: SetNull)
+
+  transactionId  String? 
+  paymentId      String?   @unique
+  amount         String?
+  appliedAt      DateTime         @default(now())
+
+  @@map("registrations")
+}
+
+
+
+
+model Event {
+  id            String           @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  description   String
+  image         String
+  deadline      DateTime
+  registrations Registration[]
+}
+
+model Project {
+  id            String           @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  link      String?
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model Post {
+  id            String           @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  content   String
+  image     String?
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }

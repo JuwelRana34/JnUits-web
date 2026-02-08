@@ -35,7 +35,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { authClient } from '@/lib/auth/auth-client'
-import { RegisterValues, registerSchema } from '@/lib/auth/authvalidation'
+import { RegisterValues, registerSchema } from '@/lib/auth/authZodType'
 
 export function RegisterForm() {
   const router = useRouter()
@@ -51,6 +51,8 @@ export function RegisterForm() {
       email: '',
       password: '',
       confirmPassword: '',
+      gender: undefined,
+      batch: '',
     },
   })
 
@@ -113,7 +115,49 @@ export function RegisterForm() {
               />
             </div>
 
-            {/* ✅ Added Phone Number Field */}
+            {/* New: Gender and Batch Row */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="gender"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Gender</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="Male">Male</SelectItem>
+                        <SelectItem value="Female">Female</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="batch"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Batch</FormLabel>
+                    <FormControl>
+                      <Input placeholder="18th" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
             <FormField
               control={form.control}
               name="phoneNumber"
