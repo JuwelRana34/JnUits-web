@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -272,6 +273,15 @@ export function RegisterForm() {
             </Button>
           </form>
         </Form>
+        <div className="mt-6 text-center text-sm text-zinc-600 dark:text-zinc-400">
+          Already have an account?{' '}
+          <Link
+            href="/login"
+            className="font-medium text-blue-600 transition-colors hover:text-blue-500 dark:text-blue-400"
+          >
+            Sign In
+          </Link>
+        </div>
       </CardContent>
     </Card>
   )
