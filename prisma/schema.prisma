@@ -150,6 +150,9 @@ model Registration {
   
   eventId   String?          @db.ObjectId
   event     Event?           @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  vivaMark      Int?             @default(0)   
+  vivaComment   String?        
+  isAttended    Boolean          @default(false)
 
   payments  Payment[]
   appliedAt DateTime         @default(now())
@@ -161,6 +164,7 @@ model Event {
   id            String         @id @default(auto()) @map("_id") @db.ObjectId
   title         String
   fee           Int?         @default(0)
+  isPaid        Boolean       @default(true)
   description   String
   image         String
   deadline      DateTime

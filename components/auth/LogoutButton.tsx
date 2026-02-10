@@ -9,7 +9,6 @@ import { authClient } from '@/lib/auth/auth-client'
 export default function LogoutButton() {
   const router = useRouter()
   const [isLoggingOut, setIsLoggingOut] = useState(false)
-
   const handleLogout = async () => {
     await authClient.signOut({
       fetchOptions: {
@@ -18,8 +17,8 @@ export default function LogoutButton() {
         },
         onSuccess: () => {
           setIsLoggingOut(false)
-          router.push('/login') // লগআউট হলে লগইন পেজে পাঠিয়ে দিবে
-          router.refresh() // পেজ রিফ্রেশ করে সেশন ক্লিন করবে
+          router.push('/login')
+          router.refresh()
         },
         onError: (ctx) => {
           setIsLoggingOut(false)

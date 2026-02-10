@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 
 import { ThemeProvider } from '@/components/features/theme-provider'
+import Navbar from '@/components/shared/Navbar'
 import Footer from '@/components/shared/footer'
 import { Toaster } from '@/components/ui/sonner'
 
@@ -46,7 +47,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+
           <Toaster
             position="top-right"
             richColors
