@@ -277,6 +277,7 @@ export function RegisterForm() {
           Already have an account?{' '}
           <Link
             href="/login"
+            prefetch={false}
             className="font-medium text-blue-600 transition-colors hover:text-blue-500 dark:text-blue-400"
           >
             Sign In
