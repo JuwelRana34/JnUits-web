@@ -4,10 +4,6 @@ import { useState } from 'react'
 
 import { Menu } from 'lucide-react'
 
-<<<<<<< HEAD
-=======
-// 🔥 ১. useState ইমপোর্ট করুন
->>>>>>> 4782646 (feat: implement core layouts and auth provider)
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 import Sidebar from './Sidebar'
