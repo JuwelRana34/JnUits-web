@@ -9,8 +9,8 @@ import {
   TriangleAlertIcon,
 } from 'lucide-react'
 
+import { AuthProvider } from '@/components/features/AuthProvider'
 import { ThemeProvider } from '@/components/features/theme-provider'
-import Footer from '@/components/shared/footer'
 import { Toaster } from '@/components/ui/sonner'
 
 import './globals.css'
@@ -46,7 +46,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <AuthProvider>
+            <main className="min-h-screen">{children}</main>
+          </AuthProvider>
           <Toaster
             position="top-right"
             richColors
@@ -67,7 +69,6 @@ export default function RootLayout({
             }
           />
         </ThemeProvider>
-        <Footer />
       </body>
     </html>
   )

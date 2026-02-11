@@ -1,14 +1,32 @@
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
-import { admin, twoFactor } from 'better-auth/plugins'
+import { admin, customSession, twoFactor } from 'better-auth/plugins'
 
 import prisma from '../prismadb'
 import transporter from '../sendmail'
+
+interface CustomUser {
+  id: string
+  email: string
+  name: string
+  image?: string | null
+  role?: string
+}
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: 'mongodb',
   }),
+
+  // NOTE: session configuration with cookie caching
+  session: {
+    expiresIn: 60 * 60 * 24 * 7,
+    updateAge: 60 * 60 * 24,
+    cookieCache: {
+      enabled: true,
+      maxAge: 10 * 60,
+    },
+  },
 
   //NOTE: login method
 
@@ -172,15 +190,19 @@ export const auth = betterAuth({
         },
       },
     }),
-  ],
 
-  // NOTE: session configuration with cookie caching
-  session: {
-    expiresIn: 60 * 60 * 24 * 7,
-    updateAge: 60 * 60 * 24,
-    cookieCache: {
-      enabled: true,
-      maxAge: 5 * 60,
-    },
-  },
+    customSession(async ({ user, session }) => {
+      const u = user as CustomUser
+      return {
+        user: {
+          id: u.id,
+          email: u.email,
+          name: u.name,
+          image: u.image,
+          role: u.role,
+        },
+        session,
+      }
+    }),
+  ],
 })
