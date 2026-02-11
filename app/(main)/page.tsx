@@ -5,7 +5,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <LogoutButton />
       <h1 className="text-2xl font-bold">
-        Welcome to the Jnuits! someting coming big soon ...{' '}
+        Welcome to the Jnuits! something comming soon ...{' '}
       </h1>
 
       {/* <Enable2FA /> */}
