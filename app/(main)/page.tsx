@@ -7,8 +7,6 @@ export default function Home() {
       <h1 className="text-2xl font-bold">
         Welcome to the Jnuits! something comming soon ...{' '}
       </h1>
-
-      {/* <Enable2FA /> */}
     </div>
   )
 }
