@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation'
 
 import { authClient } from '@/lib/auth/auth-client'
 
+import { Button } from '../ui/button'
+
 export default function LogoutButton() {
   const router = useRouter()
   const [isLoggingOut, setIsLoggingOut] = useState(false)
@@ -29,7 +31,7 @@ export default function LogoutButton() {
   }
 
   return (
-    <button
+    <Button
       onClick={handleLogout}
       disabled={isLoggingOut}
       className="flex items-center gap-2 rounded-lg bg-red-50 px-4 py-2 text-sm font-medium text-red-600 transition-all hover:bg-red-100 active:scale-95 disabled:opacity-50 dark:bg-red-500/10 dark:text-red-400 dark:hover:bg-red-500/20"
@@ -53,6 +55,6 @@ export default function LogoutButton() {
         </svg>
       )}
       {isLoggingOut ? 'Logging out...' : 'Logout'}
-    </button>
+    </Button>
   )
 }

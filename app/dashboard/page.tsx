@@ -1,3 +1,9 @@
+import Link from 'next/link'
+
 export default function page() {
-  return <div>page</div>
+  return (
+    <div>
+      <Link href={'/'}>back to home</Link>
+    </div>
+  )
 }
