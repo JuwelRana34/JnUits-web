@@ -42,6 +42,7 @@ export default function Sidebar({ onLinkClick }: SidebarProps) {
               <Link
                 key={link.href}
                 href={link.href}
+                prefetch={false}
                 onClick={onLinkClick}
                 className={`flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                   isActive

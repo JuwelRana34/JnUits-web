@@ -74,7 +74,7 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <nav className="hidden items-center gap-2 md:flex">
           {NavLinks.map((link) => (
-            <Link key={link.name} href={link.href}>
+            <Link key={link.name} prefetch={false} href={link.href}>
               <Button
                 variant="ghost"
                 className={`text-sm font-medium transition-all duration-200 ${
@@ -96,7 +96,7 @@ export default function Navbar() {
           ) : (
             <div className="flex items-center gap-3">
               {isAdmin && (
-                <Link href="/dashboard">
+                <Link href="/dashboard" prefetch={false}>
                   <Button variant="default" size="sm">
                     Admin panel
                   </Button>
@@ -105,7 +105,7 @@ export default function Navbar() {
 
               {user ? (
                 <div className="flex items-center gap-3">
-                  <Link href="/profile">
+                  <Link href="/profile" prefetch={false}>
                     <Button
                       variant="link"
                       className={`text-sm font-medium ${
@@ -149,7 +149,7 @@ export default function Navbar() {
               <div className="flex flex-col gap-2">
                 {NavLinks.map((link) => (
                   <SheetClose asChild key={link.name}>
-                    <Link href={link.href}>
+                    <Link href={link.href} prefetch={false}>
                       <Button
                         variant="ghost"
                         className={`w-full justify-start text-base ${
@@ -171,7 +171,7 @@ export default function Navbar() {
                   <>
                     {isAdmin && (
                       <SheetClose asChild>
-                        <Link href="/dashboard">
+                        <Link href="/dashboard" prefetch={false}>
                           <Button className="w-full" size="lg">
                             Admin Panel
                           </Button>
@@ -179,7 +179,7 @@ export default function Navbar() {
                       </SheetClose>
                     )}
                     <SheetClose asChild>
-                      <Link href="/profile">
+                      <Link href="/profile" prefetch={false}>
                         <Button
                           variant="ghost"
                           className={`w-full justify-start ${
