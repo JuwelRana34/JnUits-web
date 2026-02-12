@@ -66,7 +66,18 @@ export function RegisterForm() {
             router.push('/')
           },
           onError: (ctx) => {
-            toast.error(ctx.error.message || 'Something went wrong')
+            const errMsg = ctx.error.message
+
+            if (
+              errMsg?.includes('email') ||
+              errMsg?.includes('users_email_key')
+            ) {
+              toast.error('This Email Address is already used.')
+            } else {
+              toast.error(
+                `${errMsg} please check all information and try again.`
+              )
+            }
           },
         })
       } catch {

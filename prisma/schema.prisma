@@ -47,7 +47,7 @@ model User {
   image         String?
 
   role          UserRole  @default(USER)
-  membershipId  String?   @unique
+  membershipId  String?  
   isExecutive   Boolean?  @default(false)
 
   points        Int       @default(0)
