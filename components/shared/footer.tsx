@@ -99,9 +99,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="mt-12 border-t border-gray-800 pt-8 text-center md:flex md:justify-between md:text-left">
-          <p className="text-xs">
-            &copy; {new Date().getFullYear()} Brand Inc. All rights reserved.
-          </p>
+          <p className="text-xs">&copy; 2026 Brand Inc. All rights reserved.</p>
           <p className="mt-4 text-xs md:mt-0">Designed with ❤️ in Next.js</p>
         </div>
       </div>

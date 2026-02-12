@@ -6,6 +6,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
+import { useQueryClient } from '@tanstack/react-query'
 import { Eye, EyeOff, Loader2, X } from 'lucide-react'
 
 import { authClient } from '@/lib/auth/auth-client'
@@ -15,15 +16,14 @@ import { TwoFactorForm } from './two-factor-form'
 
 export function LoginForm() {
   const router = useRouter()
+  const queryClient = useQueryClient()
   const [isOTPRequired, setIsOTPRequired] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [formData, setFormData] = useState({ email: '', password: '' })
 
-  // পাসওয়ার্ড টগল এর জন্য স্টেট
   const [showPassword, setShowPassword] = useState(false)
 
-  // Forgot Password এর জন্য স্টেট
   const [showForgotModal, setShowForgotModal] = useState(false)
   const [forgotEmail, setForgotEmail] = useState('')
   const [forgotLoading, setForgotLoading] = useState(false)
@@ -36,6 +36,8 @@ export function LoginForm() {
 
     await authClient.signIn.email(formData, {
       onSuccess: async (ctx) => {
+        await queryClient.invalidateQueries({ queryKey: ['auth-session'] })
+
         if (ctx.data.twoFactorRedirect) {
           const { error: otpError } = await authClient.twoFactor.sendOtp()
           if (otpError) {

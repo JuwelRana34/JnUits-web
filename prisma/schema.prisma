@@ -184,12 +184,14 @@ model Project {
 }
 
 model Post {
-  id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  title    String
-  content  String
-  image    String?
-  authorId String
-  author   User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  content   String
+  image     String?
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
 
   @@map("posts")
 }

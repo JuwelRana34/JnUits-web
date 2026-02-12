@@ -1,0 +1,21 @@
+Project: Jagannath University IT Society (JNUITS)
+Tech Stack: Next.js 16, Prisma (MongoDB), Tailwind CSS, Shadcn UI, Better Auth.
+
+Guidelines:
+1. Data Fetching: 
+   - Use Server Components by default.
+   - Implement the "use cache" directive (Next.js 16 style) for database queries.
+   - Use 'cacheTag' for granular revalidation.
+2. Authentication:
+   - Use Better Auth for session management.
+   - For user data (ID, Name, Image, Email), prioritize the Client-side AuthProvider to avoid redundant server requests.
+   - Verify sessions on the server only when security or data mutation is required.
+3. Performance & Cost:
+   - Minimize Vercel serverless function calls. 
+   - Avoid redundant auth.api.getSession() calls if data is already available in props or context.
+4. UI/UX:
+   - Components must be fully responsive and professional.
+   - Use Shadcn UI and Lucide Icons.
+5. Coding Style:
+   - Always use TypeScript with strict types.
+   - Use Server Actions for all data mutations (POST, PATCH, DELETE).
