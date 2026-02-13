@@ -6,7 +6,7 @@ import prisma from '@/lib/prismadb'
 
 export async function getCachedPosts(userId: string) {
   cacheTag('posts', `posts-user-${userId}`)
-  cacheLife('minutes')
+  cacheLife('weeks')
 
   return prisma.post.findMany({
     where: { authorId: userId },

@@ -8,7 +8,8 @@ import { format } from 'date-fns'
 import { ArrowLeft, CalendarIcon } from 'lucide-react'
 
 import { getPostById } from '@/actions/posts'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import CloudImage from '@/components/shared/CloudImage'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import prisma from '@/lib/prismadb'
 
@@ -52,10 +53,13 @@ async function PostContent({ id }: { id: string }) {
 
         <div className="flex flex-wrap items-center gap-4 pt-4">
           <div className="flex items-center gap-2">
-            <Avatar className="h-10 w-10 border">
-              <AvatarImage
-                src={post.author?.image || ''}
-                alt={post.author?.name || ''}
+            <Avatar className="h-10 w-10 border ring-1 ring-blue-400">
+              <CloudImage
+                src={post.author.image}
+                alt={post.author?.name ?? 'Author'}
+                gravity="face"
+                crop="fill"
+                sizes="256px"
               />
               <AvatarFallback>
                 {post.author?.name?.charAt(0) || 'U'}

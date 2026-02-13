@@ -6,7 +6,7 @@ import prisma from '@/lib/prismadb'
 
 export async function getCachedRegistrations(userId: string) {
   cacheTag('registrations', `user-${userId}`)
-  cacheLife('minutes')
+  cacheLife('weeks')
 
   return prisma.registration.findMany({
     where: { userId },

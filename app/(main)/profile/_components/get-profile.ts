@@ -6,7 +6,7 @@ import prisma from '@/lib/prismadb'
 
 export async function getCachedProfile(userId: string) {
   cacheTag('profile', `user-${userId}`)
-  cacheLife('minutes')
+  cacheLife('max')
 
   return prisma.user.findUnique({
     where: { id: userId },

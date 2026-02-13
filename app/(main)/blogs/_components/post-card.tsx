@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { getRandomColorClass } from '@/lib/getRandomColorClass'
@@ -77,12 +76,8 @@ export function PostCard({ post }: PostCardProps) {
       </CardContent>
 
       <CardFooter className="flex items-center gap-2 p-4 pt-0">
-        <Avatar className="h-6 w-6">
-          <AvatarImage src={post.author.image || ''} />
-          <AvatarFallback>{post.author.name?.charAt(0) || 'U'}</AvatarFallback>
-        </Avatar>
         <span className="text-muted-foreground text-xs font-medium">
-          {post.author.name || 'Unknown Author'}
+          Post by : {post.author.name || 'Unknown Author'}
         </span>
       </CardFooter>
     </Card>
