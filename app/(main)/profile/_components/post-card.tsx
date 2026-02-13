@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { Trash2 } from 'lucide-react'
+import { toast } from 'sonner'
 
 import { deletePost } from '@/actions/posts'
 import { Button } from '@/components/ui/button'
@@ -32,7 +33,7 @@ export default function PostCard({ post }: PostCardProps) {
     const result = await deletePost(post.id)
     setDeleting(false)
     if (result?.success) router.refresh()
-    else if (result?.error) alert(result.error)
+    else if (result?.error) toast.error(result.error)
   }
 
   const dateStr = post.createdAt

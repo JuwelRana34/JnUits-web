@@ -1,3 +1,5 @@
+import { toast } from 'sonner'
+
 import { authClient } from '@/lib/auth/auth-client'
 
 const handleDisable2FA = async ({ password }: { password: string }) => {
@@ -8,9 +10,9 @@ const handleDisable2FA = async ({ password }: { password: string }) => {
   })
 
   if (!error) {
-    alert('২-ফ্যাক্টর অথেন্টিকেশন ডিজেবল করা হয়েছে।')
+    toast.success('২-ফ্যাক্টর অথেন্টিকেশন ডিজেবল করা হয়েছে।')
     window.location.reload()
   } else {
-    alert('ডিজেবল করতে সমস্যা হয়েছে: ' + error.message)
+    toast.error('ডিজেবল করতে সমস্যা হয়েছে: ' + error.message)
   }
 }

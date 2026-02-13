@@ -3,6 +3,8 @@ import { useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
+import { toast } from 'sonner'
+
 import { authClient } from '@/lib/auth/auth-client'
 
 // সঠিক ইম্পোর্ট
@@ -22,21 +24,21 @@ export default function Enable2FA() {
   const [backupCodes, setBackupCodes] = useState<string[]>([])
 
   const handleRequestEnable = async () => {
-    if (!password) return alert('দয়া করে আগে পাসওয়ার্ড দিন।')
+    if (!password) return toast.error('দয়া করে আগে পাসওয়ার্ড দিন।')
     setLoading(true)
     const { error } = await authClient.twoFactor.sendOtp()
     setLoading(false)
 
     if (!error) {
-      alert('আপনার ইমেইলে ওটিপি পাঠানো হয়েছে!')
+      toast.success('আপনার ইমেইলে ওটিপি পাঠানো হয়েছে!')
       setIsPending(true)
     } else {
-      alert('Error: ' + error.message)
+      toast.error('Error: ' + error.message)
     }
   }
 
   const handleVerifyAndEnable = async () => {
-    if (!otp) return alert('দয়া করে ওটিপি কোডটি দিন।')
+    if (!otp) return toast.error('দয়া করে ওটিপি কোডটি দিন।')
     setLoading(true)
 
     // ১. ওটিপি ভেরিফাই
@@ -45,7 +47,7 @@ export default function Enable2FA() {
     })
     if (otpError) {
       setLoading(false)
-      return alert('ভেরিফিকেশন ব্যর্থ: ' + otpError.message)
+      return toast.error('ভেরিফিকেশন ব্যর্থ: ' + otpError.message)
     }
 
     // ২. ২-ফ্যাক্টর এনাবল
@@ -58,12 +60,12 @@ export default function Enable2FA() {
       const result = data as unknown as TwoFactorEnableResponse
       if (result.backupCodes) {
         setBackupCodes(result.backupCodes)
-        alert(
+        toast.success(
           '২-ফ্যাক্টর অথেন্টিকেশন সফলভাবে চালু হয়েছে! ব্যাকআপ কোডগুলো সেভ করুন।'
         )
       }
     } else {
-      alert('এনাবল করতে সমস্যা হয়েছে: ' + enableError.message)
+      toast.error('এনাবল করতে সমস্যা হয়েছে: ' + enableError.message)
     }
   }
 
