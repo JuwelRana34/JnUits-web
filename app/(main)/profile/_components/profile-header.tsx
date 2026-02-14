@@ -28,7 +28,11 @@ export default function ProfileHeader({ user, action }: ProfileHeaderProps) {
         <div className="absolute bottom-0 left-0 h-24 w-24 rounded-full bg-indigo-400/10 blur-xl" />
 
         <div className="relative flex flex-col items-center gap-6 sm:flex-row sm:items-start">
-          <AvatarUploader initialImage={user.image} name={user.name} />
+          <AvatarUploader
+            key={user.image || user.name || 'avatar'}
+            initialImage={user.image}
+            name={user.name}
+          />
 
           <div className="flex-1 space-y-3 text-center sm:text-left">
             <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
