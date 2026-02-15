@@ -175,7 +175,8 @@
 }
 .ProseMirror ul,
 .ProseMirror ol {
-  padding-left: 1.5rem;
+  padding-left: 1rem;
+  list-style-type: disc;
 }
 .ProseMirror blockquote {
   border-left: 3px solid var(--border);
@@ -192,4 +193,117 @@
   font-size: 1.1rem;
   font-weight: 600;
   margin-top: 1.25em;
+}
+
+div.prose pre {
+  /* Gradient Background */
+  background: linear-gradient(
+    135deg, 
+    oklch(52.636% 0.25994 267.86 / 0.95), 
+    oklch(79.122% 0.10503 269.573 / 0.95)
+  ) !important;
+  
+  /* Modern Glow Shadow */
+  box-shadow: 0 10px 30px -10px oklch(54.6% 0.245 262.881 / 30%), 
+              0 0 15px 0 oklch(54.6% 0.245 262.881 / 10%) !important;
+  
+  color: #ffffff !important;
+  padding: 0.30rem 0.50rem !important;
+  width: fit-content; 
+  max-width: 100% !important;
+  /* border: 1px solid oklch(100% 0 0 / 10%) !important; */
+  border-radius: 0.3rem !important;
+  font-family:"Menlo" !important;
+  margin: 0.5rem 0rem !important;
+  /* overflow-x: auto !important; */
+  position: relative;
+}
+
+/* Code block এর ভিতরের টেক্সট ফিক্স */
+div.prose pre code {
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  color: inherit !important;
+}
+
+/* Scrollbar styling for code block */
+div.prose pre::-webkit-scrollbar {
+  height: 5px;
+}
+div.prose pre::-webkit-scrollbar-thumb {
+  background: oklch(54.6% 0.245 262.881 / 40%);
+  border-radius: 10px;
+}
+
+.prose code {
+  background-color: #f3f4f6;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.dark .prose code {
+  background-color: #1f2937;
+}
+
+
+.prose pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* Syntax Highlighting Colors */
+.hljs-comment,
+.hljs-quote {
+  color: #6a9955; /* Green */
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link {
+  color: #569cd6; 
+}
+
+.hljs-function,
+.hljs-title {
+  color: #dcdcaa; 
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attribute,
+.hljs-tag,
+.hljs-name,
+.hljs-regexp,
+.hljs-deletion {
+  color: #9cdcfe; 
+}
+
+.hljs-string,
+.hljs-bullet,
+.hljs-addition {
+  color: #ce9178;
+}
+
+.hljs-number,
+.hljs-built_in,
+.hljs-type {
+  color: #b5cea8;
+}
+
+.hljs-params,
+.hljs-class {
+  color: #d4d4d4;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
 }

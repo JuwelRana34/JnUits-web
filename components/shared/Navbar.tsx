@@ -47,7 +47,13 @@ type NavItemDropdown = {
   type: 'dropdown'
   name: string
   icon?: LucideIcon
-  children: { name: string; href: string; icon: LucideIcon }[]
+
+  children: {
+    name: string
+    prefetch?: boolean
+    href: string
+    icon: LucideIcon
+  }[]
 }
 
 type NavItem = NavItemLink | NavItemDropdown
@@ -66,6 +72,12 @@ const NavItems: NavItem[] = [
     prefetch: false,
   },
   {
+    name: 'Events',
+    href: '/events',
+    type: 'link',
+    prefetch: true,
+  },
+  {
     name: 'Committee',
     type: 'dropdown',
     icon: Users,
@@ -73,11 +85,13 @@ const NavItems: NavItem[] = [
       {
         name: 'Current Committee',
         href: '/committee/current',
+        prefetch: false,
         icon: UserCheck,
       },
       {
         name: 'Advisory Panel',
         href: '/committee/advisory',
+        prefetch: false,
         icon: ShieldCheck,
       },
     ],
@@ -163,7 +177,11 @@ export default function Navbar() {
                   <DropdownMenuContent align="center" className="w-48">
                     {item.children.map((child) => (
                       <DropdownMenuItem key={child.name} asChild>
-                        <Link href={child.href} className="cursor-pointer">
+                        <Link
+                          href={child.href}
+                          prefetch={child.prefetch}
+                          className="cursor-pointer"
+                        >
                           <child.icon
                             className={`mr-2 h-4 w-4 ${
                               child.name.includes('Videos')
@@ -268,7 +286,7 @@ export default function Navbar() {
                           </div>
                           {item.children.map((child) => (
                             <SheetClose asChild key={child.name}>
-                              <Link href={child.href}>
+                              <Link href={child.href} prefetch={child.prefetch}>
                                 <Button
                                   variant="ghost"
                                   className={`w-full justify-start text-base ${

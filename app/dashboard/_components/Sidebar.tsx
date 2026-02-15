@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { LayoutDashboard, Settings, UploadCloud, User } from 'lucide-react'
+import { CalendarCog, LayoutDashboard, UploadCloud, User } from 'lucide-react'
 
 import LogoutButton from '@/components/auth/LogoutButton'
 import { useAuth } from '@/components/features/AuthProvider'
@@ -11,7 +11,12 @@ import { useAuth } from '@/components/features/AuthProvider'
 const sidebarLinks = [
   { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Upload Video', href: '/dashboard/upload-video', icon: UploadCloud },
-  { name: 'Settings', href: '/dashboard', icon: Settings },
+  // { name: 'Settings', href: '/dashboard', icon: Settings },
+  {
+    name: 'Events management',
+    href: '/dashboard/events_management',
+    icon: CalendarCog,
+  },
 ]
 
 interface SidebarProps {

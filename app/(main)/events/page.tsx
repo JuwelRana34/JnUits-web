@@ -1,0 +1,53 @@
+import { Suspense } from 'react'
+
+import { cacheLife, cacheTag } from 'next/cache'
+
+import { BackgroundBeams } from '@/components/ui/background-beams'
+import prisma from '@/lib/prismadb'
+
+import EventCard from './_components/EventCard'
+
+async function getEvents() {
+  'use cache'
+  cacheLife('max')
+  cacheTag('all-events')
+  return await prisma.event.findMany({
+    where: { isActive: true },
+    orderBy: { deadline: 'asc' },
+  })
+}
+
+export default async function EventsPage() {
+  const events = await getEvents()
+
+  return (
+    <div className="relative min-h-screen bg-neutral-950 px-4 py-12 antialiased">
+      <Suspense fallback={<div> loading..</div>}>
+        <BackgroundBeams />
+      </Suspense>
+
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="mb-16 text-center">
+          <h1 className="bg-linear-to-b from-neutral-50 to-neutral-400 bg-clip-text text-5xl font-bold text-transparent md:text-7xl">
+            Upcoming Events
+          </h1>
+          <p className="mx-auto mt-4 max-w-lg text-neutral-500">
+            Join our workshops, seminars, and courses to enhance your skills.
+          </p>
+        </div>
+
+        {events.length === 0 ? (
+          <h1 className="text-center text-4xl text-slate-200">
+            No Events Found!
+          </h1>
+        ) : (
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {events.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}

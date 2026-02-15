@@ -1,5 +1,5 @@
 Project: Jagannath University IT Society (JNUITS)
-Tech Stack: Next.js 16, Prisma (MongoDB), Tailwind CSS, Shadcn UI, Better Auth.
+Tech Stack: Next.js 16, Prisma (MongoDB), Tailwind CSS, Shadcn UI, acentricity ui, magic ui, Better Auth.
 
 Guidelines:
 1. Data Fetching: 
@@ -15,7 +15,7 @@ Guidelines:
    - Avoid redundant auth.api.getSession() calls if data is already available in props or context.
 4. UI/UX:
    - Components must be fully responsive and professional.
-   - Use Shadcn UI and Lucide Icons.
+   - Use Shadcn UI or acentricity ui or magic ui and Lucide Icons.
 5. Coding Style:
    - Always use TypeScript with strict types.
    - Use Server Actions for all data mutations (POST, PATCH, DELETE).

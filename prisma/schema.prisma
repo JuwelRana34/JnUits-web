@@ -152,7 +152,7 @@ model Registration {
   event     Event?           @relation(fields: [eventId], references: [id], onDelete: SetNull)
   vivaMark      Int?             @default(0)   
   vivaComment   String?        
-  isAttended    Boolean          @default(false)
+  isAttended    Boolean        @default(false)
 
   payments  Payment[]
   appliedAt DateTime         @default(now())
@@ -163,12 +163,15 @@ model Registration {
 model Event {
   id            String         @id @default(auto()) @map("_id") @db.ObjectId
   title         String
-  fee           Int?         @default(0)
-  isPaid        Boolean       @default(true)
+  fee           Int         @default(0)
+  isPaid        Boolean       @default(false)
   description   String
   image         String
   deadline      DateTime
+  isActive      Boolean       
+  isPublic      Boolean  @default(false)
   registrations Registration[]
+  guestRegistrations GuestRegistration[]
 
   @@map("events")
 }
@@ -213,4 +216,19 @@ model Payment {
   updatedAt      DateTime      @updatedAt
 
   @@map("payments")
+}
+
+
+model GuestRegistration {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  phone     String
+  institution String?
+  
+  eventId   String   @db.ObjectId
+  event     Event    @relation(fields: [eventId], references: [id])
+  status    StatusType @default(PENDING)
+
+  @@map("guest_registrations")
 }
