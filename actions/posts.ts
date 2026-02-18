@@ -108,7 +108,7 @@ export async function getPosts(page: number = 1, limit: number = 6) {
         orderBy: { createdAt: 'desc' },
         include: {
           author: {
-            select: { name: true, image: true }, // Optimize payload
+            select: { name: true, image: true },
           },
         },
       }),

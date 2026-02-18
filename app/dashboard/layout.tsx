@@ -22,7 +22,7 @@ export default function DashboardLayout({
         </header>
 
         {/* Main Content Area */}
-        <main className="flex-1 p-6 lg:p-10">
+        <main className="flex-1 p-3 lg:p-10">
           <div className="mx-auto max-w-6xl">{children}</div>
         </main>
       </div>
