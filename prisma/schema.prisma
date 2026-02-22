@@ -13,13 +13,13 @@ enum UserRole {
   USER
   MEMBER
   EXECUTIVE
+  SUB_EXECUTIVE
   ADMIN
   SUPER_ADMIN
 }
 
 enum RegistrationType {
   MEMBER_APPLY
-  EVENT_PARTICIPATION
   WORKSHOP
   BCC_COURSE
 }
@@ -141,21 +141,22 @@ model TwoFactor {
 }
 
 model Registration {
-  id        String           @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String
-  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
   
-  type      RegistrationType @default(MEMBER_APPLY)
-  status    StatusType       @default(PENDING)
+  userId       String?
+  user         User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
   
-  eventId   String?          @db.ObjectId
-  event     Event?           @relation(fields: [eventId], references: [id], onDelete: SetNull)
-  vivaMark      Int?             @default(0)   
-  vivaComment   String?        
-  isAttended    Boolean        @default(false)
 
-  payments  Payment[]
-  appliedAt DateTime         @default(now())
+  status       StatusType       @default(PENDING)
+  
+  eventId      String?          @db.ObjectId
+  event        Event?           @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  vivaMark     Int?             @default(0)   
+  vivaComment  String?         
+  isAttended   Boolean          @default(false)
+
+  payments     Payment[]
+  appliedAt    DateTime         @default(now())
 
   @@map("registrations")
 }
@@ -165,6 +166,7 @@ model Event {
   title         String
   fee           Int         @default(0)
   isPaid        Boolean       @default(false)
+  type          RegistrationType @default(MEMBER_APPLY)
   description   String
   image         String
   deadline      DateTime
@@ -206,8 +208,8 @@ model Payment {
   provider       String?
   status         PaymentStatus @default(PENDING)
 
-  userId         String
-  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String?
+  user           User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   registrationId String        @db.ObjectId
   registration   Registration  @relation(fields: [registrationId], references: [id], onDelete: Cascade)
@@ -224,10 +226,9 @@ model GuestRegistration {
   name      String
   email     String
   phone     String
-  institution String?
   
   eventId   String   @db.ObjectId
-  event     Event    @relation(fields: [eventId], references: [id])
+ event    Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
   status    StatusType @default(PENDING)
 
   @@map("guest_registrations")

@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 
 import AvatarUploader from './AvatarUploader'
+import { getRoleIcon } from './RoleIconShower'
 
 interface ProfileHeaderProps {
   action?: React.ReactNode
@@ -35,12 +36,15 @@ export default function ProfileHeader({ user, action }: ProfileHeaderProps) {
           />
 
           <div className="flex-1 space-y-3 text-center sm:text-left">
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+            <div className="flex flex-col flex-wrap items-center justify-center gap-2 sm:justify-start md:flex-row">
               <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
                 {user.name ?? 'Member'}
               </h1>
               <Badge className="bg-white/20 text-white backdrop-blur-sm hover:bg-white/30">
-                {user.role?.replace(/_/g, ' ')}
+                {getRoleIcon(user.role)}
+                <span className="text-sm font-medium text-white">
+                  {user.role?.replace(/_/g, ' ')}
+                </span>
               </Badge>
             </div>
 

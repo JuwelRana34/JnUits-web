@@ -1,8 +1,5 @@
-import { Suspense } from 'react'
-
 import { cacheLife, cacheTag } from 'next/cache'
 
-import { BackgroundBeams } from '@/components/ui/background-beams'
 import prisma from '@/lib/prismadb'
 
 import EventCard from './_components/EventCard'
@@ -21,14 +18,10 @@ export default async function EventsPage() {
   const events = await getEvents()
 
   return (
-    <div className="relative min-h-screen bg-neutral-950 px-4 py-12 antialiased">
-      <Suspense fallback={<div> loading..</div>}>
-        <BackgroundBeams />
-      </Suspense>
-
+    <div className="relative min-h-screen px-4 py-5 antialiased">
       <div className="relative z-10 mx-auto max-w-7xl">
         <div className="mb-16 text-center">
-          <h1 className="bg-linear-to-b from-neutral-50 to-neutral-400 bg-clip-text text-5xl font-bold text-transparent md:text-7xl">
+          <h1 className="bg-linear-to-b from-emerald-200 to-blue-500 bg-clip-text pb-5 text-5xl font-bold text-transparent md:text-7xl">
             Upcoming Events
           </h1>
           <p className="mx-auto mt-4 max-w-lg text-neutral-500">

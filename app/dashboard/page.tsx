@@ -19,6 +19,12 @@ export default async function DashboardPage() {
 
   const safeTraffic = trafficData.success ? trafficData.data : []
 
+  const normalizedActivity = recentActivity.map((item) => ({
+    ...item,
+    userImage: item.userImage ?? null,
+    target: item.target ?? null,
+  }))
+
   return (
     <div className="relative min-h-[calc(100vh-4rem)] w-full overflow-hidden p-2 md:p-6">
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-8">
@@ -37,7 +43,7 @@ export default async function DashboardPage() {
         {/* Bento Grid Layout */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           <TrafficChart data={safeTraffic} />
-          <RecentActivity data={recentActivity} />
+          <RecentActivity data={normalizedActivity} />
         </div>
 
         {/* Helper Cards */}

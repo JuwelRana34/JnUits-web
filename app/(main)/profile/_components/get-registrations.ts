@@ -5,7 +5,7 @@ import { cacheLife, cacheTag } from 'next/cache'
 import prisma from '@/lib/prismadb'
 
 export async function getCachedRegistrations(userId: string) {
-  cacheTag('registrations', `user-${userId}`)
+  cacheTag('registrations', `user-registrations-${userId}`)
   cacheLife('weeks')
 
   return prisma.registration.findMany({

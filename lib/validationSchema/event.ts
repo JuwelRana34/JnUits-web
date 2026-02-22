@@ -12,4 +12,13 @@ export const eventSchema = z.object({
   isPublic: z.boolean().default(false),
   image: z.string().url('Please enter a valid image URL'),
   description: z.string().min(20, 'Description is too short'),
+  type: z.enum(['MEMBER_APPLY', 'WORKSHOP', 'BCC_COURSE'], {
+    message: 'Please select an event type',
+  }),
 })
+
+export const EVENT_TYPE_OPTIONS = [
+  { value: 'WORKSHOP', label: 'Workshop' },
+  { value: 'BCC_COURSE', label: 'BCC Course' },
+  { value: 'MEMBER_APPLY', label: 'Member Apply' },
+] as const

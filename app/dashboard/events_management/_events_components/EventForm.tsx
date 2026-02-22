@@ -24,9 +24,16 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { uploadImage } from '@/lib/cloudinary/PhotoUpload'
 import getErrorMessage from '@/lib/errorTypeCheck'
-import { eventSchema } from '@/lib/validationSchema/event'
+import { EVENT_TYPE_OPTIONS, eventSchema } from '@/lib/validationSchema/event'
 
 type EventInput = z.input<typeof eventSchema>
 type EventOutput = z.output<typeof eventSchema>
@@ -46,17 +53,9 @@ export default function EventCreationForm() {
       image: '',
       description: '',
       deadline: '',
+      type: 'WORKSHOP',
     },
   })
-
-  // const editor = useEditor({
-  //   extensions: [StarterKit],
-  //   content: '',
-  //   immediatelyRender: false,
-  //   onUpdate: ({ editor }) => {
-  //     form.setValue('description', editor.getHTML())
-  //   },
-  // })
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -123,6 +122,34 @@ export default function EventCreationForm() {
                 <FormControl>
                   <Input placeholder="Workshop on cv writing..." {...field} />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="type"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Event Type</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select event type" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {EVENT_TYPE_OPTIONS.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}

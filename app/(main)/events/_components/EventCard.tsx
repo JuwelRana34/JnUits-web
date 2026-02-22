@@ -1,8 +1,11 @@
+import { Suspense } from 'react'
+
 import Image from 'next/image'
 
 import { Banknote, CalendarDays } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 
 import Countdown from './Countdown'
@@ -22,7 +25,7 @@ export interface IEvent {
 
 export default function EventCard({ event }: { event: IEvent }) {
   return (
-    <Card className="group overflow-hidden border-neutral-800 bg-neutral-900/50 pt-0 transition-all hover:border-neutral-700">
+    <Card className="group overflow-hidden border-neutral-400 pt-0 transition-all hover:border-blue-400">
       <div className="relative h-48 w-full overflow-hidden">
         {/* <CldImage
               src={event.image}
@@ -49,7 +52,7 @@ export default function EventCard({ event }: { event: IEvent }) {
       </div>
 
       <CardContent className="p-3">
-        <h3 className="mb-2 line-clamp-1 text-xl font-semibold text-neutral-100">
+        <h3 className="mb-2 line-clamp-2 text-xl font-semibold capitalize">
           {event.title}
         </h3>
 
@@ -75,7 +78,21 @@ export default function EventCard({ event }: { event: IEvent }) {
       </CardContent>
 
       <CardFooter className="p-5 pt-0">
-        <RegisterButton eventId={event.id} />
+        <Suspense
+          fallback={
+            <Button
+              disabled
+              className="w-full cursor-not-allowed border-0 bg-linear-to-r from-blue-600 to-indigo-600 font-semibold text-white opacity-70"
+            >
+              <div className="flex items-center gap-2">
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                Loading...
+              </div>
+            </Button>
+          }
+        >
+          <RegisterButton event={event} />
+        </Suspense>
       </CardFooter>
     </Card>
   )

@@ -39,7 +39,7 @@ export async function createPost(
         },
       },
     })
-    revalidateTag(`posts-user-${session.user.id}`, 'default')
+    revalidateTag(`posts-user-${session.user.id}`, 'max')
     revalidateTag('blog-post', 'max')
     return { success: true }
   } catch {

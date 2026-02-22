@@ -138,8 +138,8 @@ export async function getRecentActivity() {
       ...registrations.map((r) => ({
         id: r.id,
         type: 'REGISTRATION' as const,
-        userName: r.user.name,
-        userImage: r.user.image,
+        userName: r.user?.name || 'Unknown',
+        userImage: r.user?.image,
         target: r.event?.title,
         timestamp: r.appliedAt.toISOString(),
       })),
@@ -162,8 +162,8 @@ export async function getRecentActivity() {
       ...payments.map((p) => ({
         id: p.id,
         type: 'PAYMENT' as const,
-        userName: p.user.name,
-        userImage: p.user.image,
+        userName: p.user?.name || 'Unknown',
+        userImage: p.user?.image,
         target: `paid ${p.amount} BDT`,
         timestamp: p.createdAt.toISOString(),
       })),

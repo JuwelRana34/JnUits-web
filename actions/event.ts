@@ -13,6 +13,10 @@ export async function createEvent(data: z.infer<typeof eventSchema>) {
     // FIXME: need to change permission to admin
     if (session?.user.role !== 'USER')
       return { success: false, message: 'Action not parmit for you.' }
+
+    //     if (!session || !['ADMIN', 'SUPER_ADMIN'].includes(session.user.role)) {
+    //   return { success: false, message: 'You are not authorized to perform this action.' }
+    // }
     const validated = eventSchema.parse(data)
 
     const event = await prisma.event.create({
@@ -25,6 +29,7 @@ export async function createEvent(data: z.infer<typeof eventSchema>) {
         image: validated.image,
         deadline: new Date(validated.deadline),
         isPublic: validated.isPublic,
+        type: validated.type,
       },
     })
     revalidateTag('all-events', 'max')

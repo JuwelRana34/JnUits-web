@@ -42,7 +42,7 @@ export default function Countdown({ deadline }: { deadline: string | Date }) {
 
   return (
     <>
-      <h1 className="inline-block animate-pulse text-rose-300">
+      <h1 className="inline-block animate-pulse text-rose-500">
         Registration Time left:
       </h1>
       <div className="flex justify-center gap-2 rounded py-2 text-center">
@@ -54,12 +54,12 @@ export default function Countdown({ deadline }: { deadline: string | Date }) {
         ].map((item, i) => (
           <div
             key={i}
-            className="min-w-8.7 flex flex-col rounded border border-neutral-700 bg-neutral-800/80 px-2 py-1"
+            className="min-w-8.7 flex flex-col rounded border border-emerald-400/50 bg-blue-100 px-2 py-1 shadow-2xl shadow-blue-500"
           >
-            <span className="text-sm leading-tight font-bold text-indigo-400">
+            <span className="text-sm leading-tight font-bold text-blue-600">
               {item.value}
             </span>
-            <span className="text-[10px] text-neutral-500 uppercase">
+            <span className="text-[10px] text-neutral-600 uppercase">
               {item.label}
             </span>
           </div>
