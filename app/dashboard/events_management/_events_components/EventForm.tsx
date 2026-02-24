@@ -108,7 +108,7 @@ export default function EventCreationForm() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-md">
+    <div className="mx-auto max-w-3xl rounded-lg bg-white p-3 shadow-md md:p-5">
       <h2 className="mb-6 text-2xl font-bold">Create New Event</h2>
 
       <Form {...form}>
@@ -192,7 +192,7 @@ export default function EventCreationForm() {
             />
           </div>
 
-          <div className="flex gap-6">
+          <div className="flex flex-col gap-6 md:flex-row">
             <FormField
               control={form.control}
               name="isPaid"

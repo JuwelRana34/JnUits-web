@@ -1,9 +1,16 @@
 'use client'
 
+import { CldImage } from 'next-cloudinary'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { CalendarCog, LayoutDashboard, UploadCloud, User } from 'lucide-react'
+import {
+  CalendarCog,
+  LayoutDashboard,
+  UploadCloud,
+  User,
+  Users,
+} from 'lucide-react'
 
 import LogoutButton from '@/components/auth/LogoutButton'
 import { useAuth } from '@/components/features/AuthProvider'
@@ -16,6 +23,11 @@ const sidebarLinks = [
     name: 'Events management',
     href: '/dashboard/events_management',
     icon: CalendarCog,
+  },
+  {
+    name: 'Users management',
+    href: '/dashboard/user_management',
+    icon: Users,
   },
 ]
 
@@ -36,7 +48,7 @@ export default function Sidebar({ onLinkClick }: SidebarProps) {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white">
             J
           </div>
-          <span>JnUITS</span>
+          <Link href={'/'}>JnUITS</Link>
         </div>
 
         {/* Navigation */}
@@ -69,8 +81,19 @@ export default function Sidebar({ onLinkClick }: SidebarProps) {
       <div className="border-t border-gray-200 p-4">
         {/* User Profile Section */}
         <div className="mb-4 flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-gray-100 text-gray-600">
-            <User className="h-5 w-5" />
+          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-gray-200 bg-gray-100">
+            {user?.image ? (
+              <CldImage
+                src={user.image || ''}
+                alt={user?.name || 'User'}
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center text-gray-600">
+                <User className="h-5 w-5" />
+              </div>
+            )}
           </div>
 
           <div className="flex flex-col overflow-hidden">
@@ -82,6 +105,12 @@ export default function Sidebar({ onLinkClick }: SidebarProps) {
               title={user?.email || ''}
             >
               {user?.email}
+              {/* <Image
+               src={user?.image || ""}
+               alt={user?.name || ""}
+               width={140}
+               height={140}
+              /> */}
             </span>
           </div>
         </div>

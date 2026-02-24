@@ -8,17 +8,20 @@ export default function DashboardLayout({
 }>) {
   return (
     <div className="flex h-screen overflow-hidden bg-gray-50">
-      {/* 🖥️ Desktop Sidebar (Hidden on Mobile) */}
       <aside className="hidden w-64 flex-col border-r bg-white md:flex">
         <Sidebar />
       </aside>
 
       {/* 📱 Mobile Header & Main Content */}
       <div className="flex flex-1 flex-col overflow-y-auto">
-        {/* Mobile Header (Visible only on small screens) */}
-        <header className="flex h-14 items-center gap-4 border-b bg-white px-6 lg:hidden">
-          <MobileSidebar /> {/* Use Sheet component here if needed */}
-          <span className="text-lg font-semibold">Dashboard</span>
+        <header className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 flex h-14 items-center justify-between border-b px-6 py-3 backdrop-blur lg:hidden">
+          {/* Left Side: Menu & Title */}
+          <div className="flex items-center gap-4">
+            <MobileSidebar />
+            <h1 className="text-primary text-lg font-bold tracking-tight">
+              Admin Dashboard
+            </h1>
+          </div>
         </header>
 
         {/* Main Content Area */}

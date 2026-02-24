@@ -75,7 +75,9 @@ function AuthDataWrapper({ children }: { children: React.ReactNode }) {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthDataWrapper>{children}</AuthDataWrapper>
+      <React.Suspense fallback={null}>
+        <AuthDataWrapper>{children}</AuthDataWrapper>
+      </React.Suspense>
     </QueryClientProvider>
   )
 }

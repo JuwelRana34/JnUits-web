@@ -123,7 +123,10 @@ export default function Navbar() {
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
   const { user, isPending } = useAuth()
-  const isAdmin = user?.role === 'ADMIN'
+  const isAdmin =
+    user?.role === 'ADMIN' ||
+    user?.role === 'SUPER_ADMIN' ||
+    user?.role === 'EXECUTIVE'
 
   const isActive = (path: string) =>
     pathname === path || (path !== '/' && pathname.startsWith(path + '/'))
@@ -224,7 +227,10 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               {isAdmin && (
                 <Link href="/dashboard" prefetch={false}>
-                  <Button variant="default" size="sm">
+                  <Button
+                    className="bg-linear-to-br from-blue-500 to-emerald-500"
+                    size="sm"
+                  >
                     Admin panel
                   </Button>
                 </Link>

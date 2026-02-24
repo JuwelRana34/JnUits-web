@@ -46,7 +46,7 @@ export async function getDashboardStats() {
 
 export async function getTrafficData() {
   'use cache'
-
+  cacheLife('hours')
   try {
     const thirtyDaysAgo = new Date()
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
@@ -104,7 +104,7 @@ export async function getTrafficData() {
 export async function getRecentActivity() {
   'use cache'
   cacheTag('recent-activity')
-  cacheLife('default')
+  cacheLife('hours')
 
   try {
     const [registrations, users, posts, payments] = await Promise.all([
