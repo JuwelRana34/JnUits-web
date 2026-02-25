@@ -150,9 +150,9 @@ export default function Navbar() {
           <Image
             src="/MainLogo.svg"
             alt="Logo"
-            width={40}
-            height={40}
-            className="h-10 w-10 transition-transform hover:scale-105"
+            width={90}
+            height={90}
+            className="h-15 w-15"
           />
           <span className="hidden bg-linear-to-r from-blue-600 to-green-600 bg-clip-text text-xl font-extrabold text-transparent sm:block">
             JnU IT Society
@@ -228,7 +228,7 @@ export default function Navbar() {
               {isAdmin && (
                 <Link href="/dashboard" prefetch={false}>
                   <Button
-                    className="bg-linear-to-br from-blue-500 to-emerald-500"
+                    className="bg-linear-to-br from-blue-500 to-violet-500"
                     size="sm"
                   >
                     Admin panel
