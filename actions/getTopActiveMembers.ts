@@ -1,14 +1,9 @@
 'use server'
-import { cacheLife, cacheTag } from 'next/cache'
-
 import { UserRole } from '@prisma/client'
 
 import prisma from '@/lib/prismadb'
 
 export const getTopActiveMembers = async () => {
-  'use cache'
-  cacheTag('top-active-members')
-  cacheLife('hours')
   try {
     const users = await prisma.user.findMany({
       where: {
