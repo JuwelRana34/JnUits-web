@@ -93,6 +93,7 @@ export async function updatePoints(userId: string, pointsToAdd: number) {
 
     revalidateTag('management-users', 'max')
     updateTag(`user-${userId}`)
+    updateTag('top-active-members')
 
     return { success: true, newTotal: updated.points }
   } catch (error) {

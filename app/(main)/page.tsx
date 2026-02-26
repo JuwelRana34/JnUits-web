@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { CallToAction } from './_components/CallToAction'
 import { FeaturesSection } from './_components/FeaturesSection'
 import { HeroCarousel } from './_components/HeroCarousel'
-import { TopMembersSection } from './_components/TopMembersSection'
+import { TopMembersMainComponent } from './_components/TopMemberMainComponent'
 
 export const metadata: Metadata = {
   title: 'Home | JNUITS',
@@ -17,7 +17,7 @@ export default function Home() {
       <main className="flex-1">
         <HeroCarousel />
         <FeaturesSection />
-        <TopMembersSection />
+        <TopMembersMainComponent />
         <CallToAction />
       </main>
     </div>
