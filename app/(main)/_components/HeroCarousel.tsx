@@ -24,27 +24,24 @@ export function HeroCarousel() {
       id: 1,
       title: 'Innovating the Future',
       subtitle: 'Join the premier tech community at Jagannath University.',
-      color: 'from-cyan-900/80 to-slate-900/90',
-      image:
-        'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop',
+      color: 'from-cyan-900/50 to-slate-900/60',
+      image: '/photo1.jpg',
     },
     {
       id: 2,
       title: 'Learn & Lead',
       subtitle:
         'Empowering students through cutting-edge technology and collaboration.',
-      color: 'from-blue-900/80 to-slate-900/90',
-      image:
-        'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop',
+      color: 'from-blue-900/50 to-slate-900/60',
+      image: '/photo2.jpeg',
     },
     {
       id: 3,
-      title: 'Build Real Projects',
+      title: 'Build network',
       subtitle:
-        'Turn your ideas into reality with hands-on experience and expert mentorship.',
-      color: 'from-purple-900/80 to-slate-900/90',
-      image:
-        'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop',
+        ' Connect with like-minded innovators and industry leaders at IT Society.',
+      color: 'from-purple-900/50 to-slate-900/60',
+      image: '/photo3.jpeg',
     },
   ]
 
@@ -54,23 +51,23 @@ export function HeroCarousel() {
         opts={{ loop: true }}
         plugins={[plugin.current]}
         className="w-full"
-        onMouseEnter={plugin.current.stop}
-        onMouseLeave={plugin.current.reset}
       >
         <CarouselContent>
           {slides.map((slide) => (
             <CarouselItem key={slide.id}>
-              <div className="relative h-[60vh] min-h-[500px] w-full overflow-hidden md:h-[80vh]">
+              <div className="relative h-[60vh] min-h-125 w-full overflow-hidden md:h-[80vh]">
                 {/* Background Image */}
                 <Image
                   src={slide.image}
                   alt={slide.title}
+                  width={500}
+                  height={500}
                   className="absolute inset-0 h-full w-full object-cover"
                 />
 
                 {/* Gradient Overlay */}
                 <div
-                  className={`absolute inset-0 bg-gradient-to-r ${slide.color} mix-blend-multiply`}
+                  className={`absolute inset-0 bg-linear-to-r ${slide.color} mix-blend-multiply`}
                 />
                 <div className="absolute inset-0 bg-black/40" />
 

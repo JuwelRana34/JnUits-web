@@ -9,7 +9,7 @@ const topMembers = [
     name: 'Sarah Rahman',
     role: 'Lead Developer',
     points: 1250,
-    image: 'https://i.pravatar.cc/150?u=sarah',
+    image: '/MainLogo.svg',
     badge: 'Elite Developer',
   },
   {
@@ -17,7 +17,7 @@ const topMembers = [
     name: 'Fahim Ahmed',
     role: 'UI/UX Designer',
     points: 1100,
-    image: 'https://i.pravatar.cc/150?u=fahim',
+    image: '/MainLogo.svg',
     badge: 'Design Guru',
   },
   {
@@ -25,7 +25,7 @@ const topMembers = [
     name: 'Jannat Ferdous',
     role: 'Event Coordinator',
     points: 980,
-    image: 'https://i.pravatar.cc/150?u=jannat',
+    image: '/MainLogo.svg',
     badge: 'Organizer',
   },
   {
@@ -33,7 +33,7 @@ const topMembers = [
     name: 'Asif Karim',
     role: 'Cybersecurity Enthusiast',
     points: 850,
-    image: 'https://i.pravatar.cc/150?u=asif',
+    image: '/MainLogo.svg',
     badge: 'Security Pro',
   },
   {
@@ -41,7 +41,7 @@ const topMembers = [
     name: 'Lubna Hossen',
     role: 'Competitive Programmer',
     points: 820,
-    image: 'https://i.pravatar.cc/150?u=lubna',
+    image: '/MainLogo.svg',
     badge: 'Code Master',
   },
 ]
@@ -93,6 +93,8 @@ export function TopMembersSection() {
                   <Image
                     src={member.image}
                     alt={member.name}
+                    width={500}
+                    height={500}
                     className={`relative h-24 w-24 rounded-full border-4 object-cover transition-transform group-hover:scale-110 ${
                       index === 0
                         ? 'border-cyan-500'

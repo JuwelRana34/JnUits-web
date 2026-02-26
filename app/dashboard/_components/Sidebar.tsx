@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 import {
   CalendarCog,
   LayoutDashboard,
+  ShieldUser,
   UploadCloud,
   User,
   Users,
@@ -28,6 +29,11 @@ const sidebarLinks = [
     name: 'Users management',
     href: '/dashboard/user_management',
     icon: Users,
+  },
+  {
+    name: 'Committee management',
+    href: '/dashboard/committee_management',
+    icon: ShieldUser,
   },
 ]
 

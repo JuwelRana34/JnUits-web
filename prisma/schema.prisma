@@ -48,7 +48,6 @@ model User {
 
   role          UserRole  @default(USER)
   membershipId  String?  
-  isExecutive   Boolean?  @default(false)
 
   points        Int       @default(0)
   banned        Boolean   @default(false)
@@ -69,6 +68,7 @@ model User {
   backupCodes      String?
 
   // Relations
+  committees CommitteeMember[]
   registrations Registration[]
   payments      Payment[]
   projects      Project[]
@@ -151,7 +151,7 @@ model Registration {
   
   eventId      String?          @db.ObjectId
   event        Event?           @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  vivaMark     Int?             @default(0)   
+  Marks        Int?             @default(0)   
   vivaComment  String?         
   isAttended   Boolean          @default(false)
 
@@ -170,7 +170,8 @@ model Event {
   description   String
   image         String
   deadline      DateTime
-  isActive      Boolean       
+  isActive      Boolean
+  isFeatured    Boolean       @default(false)       
   isPublic      Boolean  @default(false)
   registrations Registration[]
   guestRegistrations GuestRegistration[]
@@ -232,4 +233,28 @@ model GuestRegistration {
   status    StatusType @default(PENDING)
 
   @@map("guest_registrations")
+}
+
+
+model Committee {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  session   String  @unique  // যেমন: "2026-27"
+  isCurrent Boolean   @default(false)
+  createdAt DateTime @default(now())
+  members   CommitteeMember[]
+}
+
+model CommitteeMember {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+
+  designation String    
+  
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String   
+  
+  committee   Committee @relation(fields: [committeeId], references: [id])
+  committeeId String   
+  createdAt DateTime @default(now())
+
+   @@unique([userId, committeeId])
 }

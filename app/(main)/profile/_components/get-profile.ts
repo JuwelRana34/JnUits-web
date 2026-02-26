@@ -18,7 +18,6 @@ export async function getCachedProfile(userId: string) {
       image: true,
       role: true,
       membershipId: true,
-      isExecutive: true,
       points: true,
       studentId: true,
       department: true,
