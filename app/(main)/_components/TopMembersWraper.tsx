@@ -9,6 +9,7 @@ export async function TopMembersWraper() {
   'use cache'
   cacheTag('top-active-members')
   cacheLife('hours')
+
   const topMembers = await getTopActiveMembers()
 
   return <TopMembersScroller members={topMembers} />
