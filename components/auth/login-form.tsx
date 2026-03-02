@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 
 // Eye আইকনগুলো ইম্পোর্ট করা হয়েছে
 import Link from 'next/link'
@@ -18,7 +18,7 @@ export function LoginForm() {
   const router = useRouter()
   const queryClient = useQueryClient()
   const [isOTPRequired, setIsOTPRequired] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loading, StartTransition] = useTransition()
   const [error, setError] = useState('')
   const [formData, setFormData] = useState({ email: '', password: '' })
 
@@ -29,33 +29,31 @@ export function LoginForm() {
   const [forgotLoading, setForgotLoading] = useState(false)
   const [forgotMessage, setForgotMessage] = useState({ type: '', text: '' })
 
-  const handleSignIn = async (e: React.FormEvent) => {
+  const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault()
-    setLoading(true)
     setError('')
 
-    await authClient.signIn.email(formData, {
-      onSuccess: async (ctx) => {
-        await queryClient.invalidateQueries({ queryKey: ['auth-session'] })
+    StartTransition(async () => {
+      await authClient.signIn.email(formData, {
+        onSuccess: async (ctx) => {
+          await queryClient.invalidateQueries({ queryKey: ['auth-session'] })
 
-        if (ctx.data.twoFactorRedirect) {
-          const { error: otpError } = await authClient.twoFactor.sendOtp()
-          if (otpError) {
-            setError(otpError.message || 'Failed to send verification code')
-            setLoading(false)
+          if (ctx.data.twoFactorRedirect) {
+            const { error: otpError } = await authClient.twoFactor.sendOtp()
+            if (otpError) {
+              setError(otpError.message || 'Failed to send verification code')
+            } else {
+              setIsOTPRequired(true)
+            }
           } else {
-            setIsOTPRequired(true)
-            setLoading(false)
+            router.push('/')
+            router.refresh()
           }
-        } else {
-          router.push('/')
-          router.refresh()
-        }
-      },
-      onError: (ctx) => {
-        setLoading(false)
-        setError(ctx.error.message || 'Invalid credentials')
-      },
+        },
+        onError: (ctx) => {
+          setError(ctx.error.message || 'Invalid credentials')
+        },
+      })
     })
   }
 

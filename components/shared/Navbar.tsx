@@ -7,10 +7,13 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import {
+  Award,
+  CalendarClock,
   ChevronDown,
   Image as ImageIcon,
   LucideIcon,
   Menu,
+  Newspaper,
   PlayCircle,
   ShieldCheck,
   UserCheck,
@@ -71,12 +74,12 @@ const NavItems: NavItem[] = [
     type: 'link',
     prefetch: false,
   },
-  {
-    name: 'Events',
-    href: '/events',
-    type: 'link',
-    prefetch: true,
-  },
+  // {
+  //   name: 'Events',
+  //   href: '/events',
+  //   type: 'link',
+  //   prefetch: true,
+  // },
   {
     name: 'Committee',
     type: 'dropdown',
@@ -106,10 +109,19 @@ const NavItems: NavItem[] = [
     ],
   },
   {
-    name: 'Blogs',
-    href: '/blogs',
-    type: 'link',
-    prefetch: false,
+    name: 'Resources',
+    type: 'dropdown',
+    icon: Newspaper,
+    children: [
+      { name: 'Blogs', href: '/blogs', icon: Newspaper, prefetch: false },
+      {
+        name: 'Certificates',
+        href: '/certificates',
+        icon: Award,
+        prefetch: false,
+      },
+      { name: 'Events', href: '/events', icon: CalendarClock, prefetch: false },
+    ],
   },
   {
     name: 'Contact',

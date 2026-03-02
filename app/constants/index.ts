@@ -38,3 +38,5 @@ export const DEPARTMENTS = [
   'Theatre',
   'Zoology',
 ]
+
+export const PaymentNumber = '01740960116'

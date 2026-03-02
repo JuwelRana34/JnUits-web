@@ -11,12 +11,12 @@ export async function createEvent(data: z.infer<typeof eventSchema>) {
   try {
     const session = await getCachedSession()
     // FIXME: need to change permission to admin
-    if (session?.user.role !== 'USER')
-      return { success: false, message: 'Action not parmit for you.' }
+    const allowedRoles = ['ADMIN', 'SUPER_ADMIN', 'EXECUTIVE', 'SUB_EXECUTIVE']
 
-    //     if (!session || !['ADMIN', 'SUPER_ADMIN'].includes(session.user.role)) {
-    //   return { success: false, message: 'You are not authorized to perform this action.' }
-    // }
+    if (!session?.user.role || !allowedRoles.includes(session.user.role)) {
+      return { success: false, message: 'Action not permitted for you.' }
+    }
+
     const validated = eventSchema.parse(data)
 
     const event = await prisma.event.create({

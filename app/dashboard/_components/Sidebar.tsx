@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 
 import {
   CalendarCog,
+  CornerLeftUpIcon,
   LayoutDashboard,
   ShieldUser,
   UploadCloud,
@@ -34,6 +35,11 @@ const sidebarLinks = [
     name: 'Committee management',
     href: '/dashboard/committee_management',
     icon: ShieldUser,
+  },
+  {
+    name: 'Manage Coupons',
+    href: '/dashboard/manageCoupon',
+    icon: CornerLeftUpIcon,
   },
 ]
 

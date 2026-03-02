@@ -148,12 +148,13 @@ model Registration {
   
 
   status       StatusType       @default(PENDING)
-  
+  isPassed     Boolean?          
   eventId      String?          @db.ObjectId
   event        Event?           @relation(fields: [eventId], references: [id], onDelete: Cascade)
   Marks        Int?             @default(0)   
   vivaComment  String?         
   isAttended   Boolean          @default(false)
+  metadata     Json?
 
   payments     Payment[]
   appliedAt    DateTime         @default(now())
@@ -173,8 +174,12 @@ model Event {
   isActive      Boolean
   isFeatured    Boolean       @default(false)       
   isPublic      Boolean  @default(false)
+  totalApplicants Int     @default(0)
+
+  createdAt     DateTime       @default(now())
   registrations Registration[]
   guestRegistrations GuestRegistration[]
+  coupons     Coupon[]
 
   @@map("events")
 }
@@ -221,16 +226,36 @@ model Payment {
   @@map("payments")
 }
 
+model GuestPayment {
+  id                    String              @id @default(auto()) @map("_id") @db.ObjectId
+  amount                String
+  transactionId         String              @unique
+  provider              String?
+  status                PaymentStatus       @default(PENDING)
+
+  guestRegistrationId   String              @db.ObjectId
+  guestRegistration     GuestRegistration   @relation(fields: [guestRegistrationId], references: [id], onDelete: Cascade)
+
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+
+  @@map("guest_payments")
+}
 
 model GuestRegistration {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   email     String
   phone     String
-  
-  eventId   String   @db.ObjectId
- event    Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  Marks        Int?             @default(0) 
+  eventId   String     @db.ObjectId
+  event     Event      @relation(fields: [eventId], references: [id], onDelete: Cascade)
   status    StatusType @default(PENDING)
+  isPassed  Boolean?    
+
+  appliedAt DateTime   @default(now())
+  metadata  Json?                    // BCC extra fields
+  payments  GuestPayment[]           // Guest payment আলাদা
 
   @@map("guest_registrations")
 }
@@ -257,4 +282,53 @@ model CommitteeMember {
   createdAt DateTime @default(now())
 
    @@unique([userId, committeeId])
+}
+
+
+
+
+enum CouponType {
+  GLOBAL          // সব event এ চলবে
+  EVENT_SPECIFIC  // নির্দিষ্ট event এর জন্য
+}
+
+enum DiscountType {
+  FIXED      // নির্দিষ্ট টাকা, যেমন 20 BDT
+  PERCENT    // শতাংশ, যেমন 50%
+  FREE       // 100% free
+}
+
+model Coupon {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  code         String       @unique
+  couponType   CouponType   @default(GLOBAL)
+  discountType DiscountType @default(FIXED)
+  discount     Int          @default(0)   // FIXED হলে টাকা, PERCENT হলে %
+  memberOnly   Boolean      @default(false) // true হলে শুধু member use করতে পারবে
+  maxUses      Int          @default(1)
+  usedCount    Int          @default(0)
+  isActive     Boolean      @default(true)
+  expiresAt    DateTime?
+  eventId      String?      @db.ObjectId
+  event        Event?       @relation(fields: [eventId], references: [id])
+  createdAt    DateTime     @default(now())
+  
+    usages    CouponUsage[]
+  @@map("coupons")
+}
+
+
+model CouponUsage {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  couponId  String   @db.ObjectId
+  coupon    Coupon   @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  
+  userId    String?
+  email     String?
+  
+  usedAt    DateTime @default(now())
+
+  @@unique([couponId, userId])  
+  @@unique([couponId, email])  
+  @@map("coupon_usages")
 }
