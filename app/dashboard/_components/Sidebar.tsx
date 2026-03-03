@@ -6,9 +6,9 @@ import { usePathname } from 'next/navigation'
 
 import {
   CalendarCog,
-  CornerLeftUpIcon,
   LayoutDashboard,
   ShieldUser,
+  Ticket,
   UploadCloud,
   User,
   Users,
@@ -39,7 +39,7 @@ const sidebarLinks = [
   {
     name: 'Manage Coupons',
     href: '/dashboard/manageCoupon',
-    icon: CornerLeftUpIcon,
+    icon: Ticket,
   },
 ]
 

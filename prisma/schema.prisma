@@ -274,10 +274,10 @@ model CommitteeMember {
 
   designation String    
   
-  user        User      @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String   
   
-  committee   Committee @relation(fields: [committeeId], references: [id])
+  committee   Committee @relation(fields: [committeeId], references: [id], onDelete: Cascade)
   committeeId String   
   createdAt DateTime @default(now())
 

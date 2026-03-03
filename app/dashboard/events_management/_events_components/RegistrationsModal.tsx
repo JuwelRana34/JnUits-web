@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { Filter, Loader2, Ticket, Trash2 } from 'lucide-react'
@@ -221,6 +222,18 @@ export function RegistrationsModal({
         <span className="text-muted-foreground mt-1 font-mono text-[10px] break-all">
           TrxID: {payment.transactionId}
         </span>
+        {metadata &&
+          typeof metadata === 'object' &&
+          'screenshotUrl' in metadata && (
+            <Link
+              href={metadata.screenshotUrl as string}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-1 text-xs text-blue-600 hover:underline"
+            >
+              View Screenshot
+            </Link>
+          )}
       </div>
     )
   }

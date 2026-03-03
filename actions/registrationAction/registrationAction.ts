@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidateTag, updateTag } from 'next/cache'
+import { updateTag } from 'next/cache'
 
 import { prisma } from '@/lib/prismadb'
 
@@ -120,16 +120,19 @@ export async function registerForEvent(data: RegistrationInput) {
     }
 
     // ── BCC metadata ───────────────────────────────────────────────
-    const metadata = data.isBCC
-      ? {
-          gender: data.gender ?? null,
-          facebook: data.facebook ?? null,
-          basicSkills: data.basicSkills ?? null,
-          coupon: data.coupon ?? null,
-          screenshotUrl: data.screenshotUrl ?? null,
-          discountApplied: data.fee - finalFee,
-        }
-      : null
+    const metadata = {
+      // এই ৩টি জিনিস সব ইভেন্টের জন্য
+      coupon: data.coupon ?? null,
+      screenshotUrl: data.screenshotUrl ?? null,
+      discountApplied: data.fee - finalFee,
+
+      // এইগুলো শুধুমাত্র BCC কোর্সের জন্য
+      ...(data.isBCC && {
+        gender: data.gender ?? null,
+        facebook: data.facebook ?? null,
+        basicSkills: data.basicSkills ?? null,
+      }),
+    }
 
     // paid + trxId আছে + free না হলেই payment create হবে
     const shouldCreatePayment = data.isPaid && !!data.trxId && finalFee > 0
@@ -183,6 +186,7 @@ export async function registerForEvent(data: RegistrationInput) {
       },
     })
     updateTag(`event-registrations-${data.eventId}`)
+    updateTag(`user-registrations-${data.userId}`)
     return { success: true, registration }
   } catch (error) {
     console.error('[registerForEvent]', error)

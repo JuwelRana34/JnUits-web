@@ -13,7 +13,12 @@ export const uploadImage = async (
     'upload_preset',
     process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
   )
-  formData.append('folder', folder)
+  // 1. File name theke extension bad diye sudhu nam-ta neo
+  const fileNameWithoutExt = file.name.split('.')[0]
+
+  // 2. Folder name ebong unique ID shoho public_id set koro
+  const uniqueId = Date.now()
+  formData.append('public_id', `${folder}/${fileNameWithoutExt}_${uniqueId}`)
 
   try {
     const res = await fetch(

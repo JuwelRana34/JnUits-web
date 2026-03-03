@@ -244,6 +244,14 @@ export default function RegisterButton({ event }: { event: IEvent }) {
       return
     }
 
+    if (event.isPaid && !isFreeAfterCoupon && !screenshot) {
+      setErrors((prev) => ({
+        ...prev,
+        screenshot: 'Payment screenshot is required',
+      }))
+      return
+    }
+
     if (isBCC && event.isPaid && !isFreeAfterCoupon && !screenshot) {
       setErrors((prev) => ({
         ...prev,
@@ -278,10 +286,14 @@ export default function RegisterButton({ event }: { event: IEvent }) {
     startTransition(async () => {
       try {
         let screenshotUrl: string | undefined = undefined
-        if (isBCC && screenshot) {
+        if (event.isPaid && !isFreeAfterCoupon && screenshot) {
           setIsUploading(true)
           try {
-            screenshotUrl = await uploadImage(screenshot, 'Payments', 5)
+            screenshotUrl = await uploadImage(
+              screenshot,
+              'JnuIts_Payments_ss',
+              5
+            )
           } catch {
             toast.error('Failed to upload screenshot. Please try again.')
             setIsUploading(false)
@@ -312,6 +324,7 @@ export default function RegisterButton({ event }: { event: IEvent }) {
           fee: Number(event.fee) || 0,
           isBCC,
           coupon: appliedCoupon ? formData.coupon : undefined, // ✅ applied হলেই পাঠাবে
+          screenshotUrl,
           ...bccFields,
         })
 
@@ -643,7 +656,7 @@ export default function RegisterButton({ event }: { event: IEvent }) {
                     </div>
 
                     {/* Screenshot — Paid BCC only */}
-                    {event.isPaid && !isFreeAfterCoupon && (
+                    {/* {event.isPaid && !isFreeAfterCoupon && (
                       <div className="grid gap-2">
                         <Label className="ml-1 text-sm font-semibold text-neutral-700 dark:text-neutral-300">
                           Payment Screenshot
@@ -698,7 +711,7 @@ export default function RegisterButton({ event }: { event: IEvent }) {
                           </p>
                         )}
                       </div>
-                    )}
+                    )} */}
                   </div>
                 )}
 
@@ -974,6 +987,64 @@ export default function RegisterButton({ event }: { event: IEvent }) {
                             </p>
                           )}
                         </div>
+
+                        {/* Screenshot Upload here */}
+                        {event.isPaid && !isFreeAfterCoupon && (
+                          <div className="grid gap-2">
+                            <Label className="ml-1 text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+                              Payment Screenshot
+                            </Label>
+                            <input
+                              ref={fileInputRef}
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={handleScreenshotChange}
+                            />
+                            {screenshotPreview ? (
+                              <div className="relative overflow-hidden rounded-xl border border-purple-200 dark:border-purple-900/50">
+                                <Image
+                                  width={500}
+                                  height={500}
+                                  src={screenshotPreview}
+                                  alt="Payment screenshot preview"
+                                  className="max-h-40 w-full bg-neutral-50 object-contain dark:bg-neutral-900"
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setScreenshot(null)
+                                    setScreenshotPreview(null)
+                                    if (fileInputRef.current)
+                                      fileInputRef.current.value = ''
+                                  }}
+                                  className="absolute top-2 right-2 flex h-7 w-7 items-center justify-center rounded-full bg-red-500 text-white hover:bg-red-600"
+                                >
+                                  <X className="h-3.5 w-3.5" />
+                                </button>
+                              </div>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => fileInputRef.current?.click()}
+                                className={`flex h-24 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed bg-white transition-colors hover:bg-purple-50 dark:bg-neutral-900 dark:hover:bg-purple-950/20 ${errors.screenshot ? 'border-red-400' : 'border-purple-200 dark:border-purple-900/50'}`}
+                              >
+                                <ImageUp className="h-6 w-6 text-purple-400" />
+                                <span className="text-xs font-medium text-neutral-500">
+                                  Click to upload screenshot
+                                </span>
+                                <span className="text-xs text-neutral-400">
+                                  PNG, JPG up to 5MB
+                                </span>
+                              </button>
+                            )}
+                            {errors.screenshot && (
+                              <p className="ml-1 text-xs text-red-500">
+                                {errors.screenshot}
+                              </p>
+                            )}
+                          </div>
+                        )}
                       </>
                     )}
                   </div>
