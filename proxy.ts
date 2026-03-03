@@ -10,13 +10,18 @@ export async function proxy(request: NextRequest) {
 
   const { pathname } = request.nextUrl
 
-  if (!session) {
-    if (pathname.startsWith('/dashboard')) {
+  if (pathname.startsWith('/dashboard')) {
+    if (!session) {
       return NextResponse.redirect(new URL('/login', request.url))
+    }
+
+    const allowedRoles = ['EXECUTIVE', 'ADMIN', 'SUPER_ADMIN']
+
+    if (!allowedRoles.includes(session.user.role ?? '')) {
+      return NextResponse.redirect(new URL('/', request.url))
     }
   }
 
-  // যদি সেশন থাকে এবং ইউজার লগইন পেজে যেতে চায়
   if (session && (pathname === '/login' || pathname === '/registration')) {
     return NextResponse.redirect(new URL('/', request.url))
   }

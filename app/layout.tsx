@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Figtree } from 'next/font/google'
 
+import { Analytics } from '@vercel/analytics/next'
 import {
   CircleCheckIcon,
   InfoIcon,
@@ -62,6 +63,7 @@ export default function RootLayout({
             }
           />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
