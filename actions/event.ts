@@ -1,5 +1,5 @@
 'use server'
-import { revalidateTag } from 'next/cache'
+import { updateTag } from 'next/cache'
 
 import { z } from 'zod'
 
@@ -32,7 +32,7 @@ export async function createEvent(data: z.infer<typeof eventSchema>) {
         type: validated.type,
       },
     })
-    revalidateTag('all-events', 'max')
+    updateTag('all-events')
     return { success: true, event }
   } catch (error) {
     console.error(error)
@@ -43,4 +43,11 @@ export async function createEvent(data: z.infer<typeof eventSchema>) {
 
     return { success: false, error: 'Failed to create event' }
   }
+}
+
+export async function getEvents() {
+  return await prisma.event.findMany({
+    where: { isActive: true },
+    orderBy: { deadline: 'asc' },
+  })
 }

@@ -346,7 +346,12 @@ export default function Navbar() {
 
               <div className="border-t bg-gray-50 p-6">
                 <div className="flex flex-col gap-3">
-                  {user ? (
+                  {isPending ? (
+                    <div className="flex flex-col gap-3">
+                      <div className="h-10 w-full animate-pulse rounded-md bg-gray-200" />
+                      <div className="h-10 w-full animate-pulse rounded-md bg-gray-200" />
+                    </div>
+                  ) : user ? (
                     <>
                       {isAdmin && (
                         <SheetClose asChild>

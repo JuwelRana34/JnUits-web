@@ -104,7 +104,7 @@ export function DataTable<TData, TValue>({
             onChange={(e) =>
               table.getColumn('name')?.setFilterValue(e.target.value)
             }
-            className="h-9 w-full max-w-[250px] lg:max-w-[300px]"
+            className="h-9 w-full max-w-62.5 lg:max-w-75"
           />
 
           {/* ✅ Role filter dropdown */}
@@ -119,7 +119,7 @@ export function DataTable<TData, TValue>({
                   ?.setFilterValue(value === 'ALL' ? '' : value)
               }
             >
-              <SelectTrigger className="h-9 w-[150px]">
+              <SelectTrigger className="h-9 w-37.5">
                 <SelectValue placeholder="Role" />
               </SelectTrigger>
               <SelectContent>
@@ -151,7 +151,7 @@ export function DataTable<TData, TValue>({
                 }
               }}
             >
-              <SelectTrigger className="h-9 w-[130px]">
+              <SelectTrigger className="h-9 w-32.5">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

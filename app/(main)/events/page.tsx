@@ -1,20 +1,14 @@
 import { cacheLife, cacheTag } from 'next/cache'
 
-import prisma from '@/lib/prismadb'
+import { getEvents } from '@/actions/event'
 
 import EventCard from './_components/EventCard'
 
-async function getEvents() {
+export default async function EventsPage() {
   'use cache'
   cacheLife('max')
   cacheTag('all-events')
-  return await prisma.event.findMany({
-    where: { isActive: true },
-    orderBy: { deadline: 'asc' },
-  })
-}
 
-export default async function EventsPage() {
   const events = await getEvents()
 
   return (

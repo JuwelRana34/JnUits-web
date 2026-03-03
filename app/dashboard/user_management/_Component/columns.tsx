@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react'
 
 import { useRouter } from 'next/navigation'
 
+import { useQueryClient } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
 import {
   Ban,
@@ -61,7 +62,7 @@ const DataTableRowActions = ({ user }: { user: UserData }) => {
   const [newRole, setNewRole] = useState<UserRole>(user.role)
   const [pointsInput, setPointsInput] = useState<number>(user.points)
   const [banReason, setBanReason] = useState('')
-
+  const queryClient = useQueryClient()
   const handleOpen = (type: typeof actionType) => {
     setActionType(type)
     setNewRole(user.role)
@@ -76,6 +77,7 @@ const DataTableRowActions = ({ user }: { user: UserData }) => {
         if (actionType === 'role') {
           await updateUserRole(user.id, newRole)
           router.refresh()
+          queryClient.invalidateQueries({ queryKey: ['auth-session'] })
           toast.success('User role updated successfully!')
         } else if (actionType === 'points') {
           const result = await updatePoints(user.id, pointsInput)
