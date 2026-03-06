@@ -117,12 +117,6 @@ export default function Sidebar({ onLinkClick }: SidebarProps) {
               title={user?.email || ''}
             >
               {user?.email}
-              {/* <Image
-               src={user?.image || ""}
-               alt={user?.name || ""}
-               width={140}
-               height={140}
-              /> */}
             </span>
           </div>
         </div>

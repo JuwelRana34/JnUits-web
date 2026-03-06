@@ -11,7 +11,7 @@ export default function AuthLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="relative flex min-h-screen w-full items-center justify-center bg-gray-50 p-4 dark:bg-gray-900">
+    <div className="relative flex min-h-screen w-full items-center justify-center bg-gray-50 p-2 dark:bg-gray-900">
       <div className="absolute top-4 left-4 md:top-8 md:left-8">
         <Button
           asChild

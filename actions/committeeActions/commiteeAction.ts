@@ -58,22 +58,28 @@ export async function createCommitteeAction(formData: FormData) {
 }
 
 // for admin post
-export async function getCommittees() {
-  'use cache'
-  cacheTag('committees')
+// export async function getCommittees() {
+//   'use cache'
+//   cacheTag('committees')
 
-  try {
-    const committees = await prisma.committee.findMany({
-      orderBy: {
-        createdAt: 'desc',
-      },
-    })
+//   try {
+//     const committees = await prisma.committee.findMany({
+//       orderBy: {
+//         createdAt: 'desc',
+//       },
+//     })
 
-    return committees
-  } catch (error) {
-    console.error('Failed to fetch committees:', error)
-    throw new Error('Unable to fetch committees')
-  }
+//     return committees
+//   } catch (error) {
+//     console.error('Failed to fetch committees:', error)
+//     throw new Error('Unable to fetch committees')
+//   }
+// }
+
+export async function deleteCommitteeSession(id: string) {
+  await prisma.committee.delete({ where: { id } })
+  updateTag('All-committees')
+  updateTag('committee_members')
 }
 
 export async function searchUsers(query: string) {
@@ -132,7 +138,7 @@ export async function addMemberAction(formData: FormData) {
     })
 
     revalidateTag('committees', 'max')
-
+    updateTag('committee_members')
     return { success: true }
   } catch (error) {
     console.error(error)
@@ -144,7 +150,8 @@ export async function addMemberAction(formData: FormData) {
 
 export async function getCommitteeWithMembers(session?: string) {
   'use cache'
-  cacheLife('days')
+  cacheLife('max')
+  cacheTag('committee_members')
   const committee = await prisma.committee.findFirst({
     where: session ? { session } : { isCurrent: true },
 
@@ -180,4 +187,32 @@ export async function getAllCommittees() {
       session: true,
     },
   })
+}
+
+// ১. Delete Member
+export async function deleteMemberAction(memberId: string) {
+  try {
+    await prisma.committeeMember.delete({ where: { id: memberId } })
+    updateTag('committee_members')
+    return { success: true }
+  } catch (error) {
+    return { error: 'Failed to delete member' }
+  }
+}
+
+// ২. Edit Member Designation
+export async function editMemberAction(
+  memberId: string,
+  newDesignation: string
+) {
+  try {
+    await prisma.committeeMember.update({
+      where: { id: memberId },
+      data: { designation: newDesignation },
+    })
+    updateTag('committee_members')
+    return { success: true }
+  } catch (error) {
+    return { error: 'Failed to update member' }
+  }
 }

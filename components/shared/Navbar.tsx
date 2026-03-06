@@ -104,8 +104,18 @@ const NavItems: NavItem[] = [
     type: 'dropdown',
     icon: ImageIcon,
     children: [
-      { name: 'Photos', href: '/gallery/photos', icon: ImageIcon },
-      { name: 'Videos', href: '/gallery/videos', icon: PlayCircle },
+      {
+        name: 'Photos',
+        href: '/gallery/photos',
+        icon: ImageIcon,
+        prefetch: false,
+      },
+      {
+        name: 'Videos',
+        href: '/gallery/videos',
+        icon: PlayCircle,
+        prefetch: false,
+      },
     ],
   },
   {
@@ -120,7 +130,7 @@ const NavItems: NavItem[] = [
         icon: Award,
         prefetch: false,
       },
-      { name: 'Events', href: '/events', icon: CalendarClock, prefetch: false },
+      { name: 'Events', href: '/events', icon: CalendarClock },
     ],
   },
   {

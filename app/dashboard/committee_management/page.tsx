@@ -2,10 +2,23 @@ import { Suspense } from 'react'
 
 import AddMemberInCommittee from './_Components/AddMemberInCommittee'
 import CreateCommitteeForm from './_Components/CreateCommitteeForm'
+import ManageExistingMember from './_Components/ManageExistingMember'
 
-export default function CommitteManagement() {
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+
+export default async function CommitteManagement({
+  searchParams,
+}: {
+  searchParams: SearchParams
+}) {
+  const resolvedParams = await searchParams
+  const session =
+    typeof resolvedParams.session === 'string'
+      ? resolvedParams.session
+      : undefined
+
   return (
-    <div className="container mx-auto space-y-8 px-4 py-10">
+    <div className="container mx-auto space-y-8 px-1 py-10">
       <div className="flex flex-col space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">
           Committee Management
@@ -26,6 +39,11 @@ export default function CommitteManagement() {
           <AddMemberInCommittee />
         </Suspense>
       </div>
+
+      {/* Right Side: Add Members to Session */}
+      <Suspense fallback={<p>loading...</p>}>
+        <ManageExistingMember session={session} />
+      </Suspense>
     </div>
   )
 }

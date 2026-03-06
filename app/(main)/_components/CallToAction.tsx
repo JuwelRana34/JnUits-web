@@ -27,21 +27,24 @@ export function CallToAction() {
       <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl">
           <h2 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
-            Ready to shape the future?
+            Where Tech Meets Talent.
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-lg text-slate-300">
-            Join the Jagannath University IT Society today. Unlock exclusive
-            resources, mentorship, and endless opportunities to grow your tech
-            career.
+            Join a passionate community of innovators at the Jagannath
+            University IT Society. Collaborate, learn, and grow alongside peers
+            who share your drive for technology.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <RainbowButton
               className="px-8 py-6 text-lg font-semibold shadow-lg shadow-cyan-500/30"
               asChild
             >
-              <Link href="/registration">Become a Member</Link>
+              <Link prefetch={false} href="/registration">
+                Become a Member
+              </Link>
             </RainbowButton>
             <Link
+              prefetch={false}
               href="/about"
               className="text-sm leading-6 font-semibold text-white transition-colors hover:text-cyan-400"
             >
