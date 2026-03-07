@@ -164,3 +164,13 @@ export async function processAvatarUpload(formData: FormData) {
     return { success: false, error: 'Profile picture update kora jayni' }
   }
 }
+
+// Member verification fc
+
+export async function verifyMember(id: string) {
+  const member = await prisma.user.findFirst({
+    where: { membershipId: id },
+    select: { name: true, membershipId: true, createdAt: true },
+  })
+  return member
+}

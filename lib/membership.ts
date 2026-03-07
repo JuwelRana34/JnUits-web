@@ -1,13 +1,13 @@
 import prisma from './prismadb'
 
-export async function generateMembershipId() {
+export async function generateMembershipId(index: string) {
   const currentYear = new Date().getFullYear()
-  const prefix = 'JnUITs'
+  const prefix = 'JnUITS'
 
   const memberCount = await prisma.user.count({
     where: {
       membershipId: {
-        startsWith: `${prefix}-${currentYear}`,
+        startsWith: `${prefix}-${currentYear}${index}`,
       },
     },
   })

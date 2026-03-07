@@ -181,7 +181,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-2 md:flex">
+        <nav className="hidden items-center gap-2 lg:flex">
           {NavItems.map((item) => {
             if (item.type === 'dropdown') {
               return (
@@ -286,7 +286,7 @@ export default function Navbar() {
         {/* --- MOBILE MENU --- */}
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="md:hidden">
+            <Button variant="ghost" size="icon" className="lg:hidden">
               <Menu className="h-6 w-6 text-gray-700" />
             </Button>
           </SheetTrigger>

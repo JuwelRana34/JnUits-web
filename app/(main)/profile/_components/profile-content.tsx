@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 
 import { getCachedSession } from '@/lib/auth/getSession'
 
+import IdCardDownload from './IdCardDownload'
 import { getCachedProfile } from './get-profile'
 import ProfileDetails from './profile-details'
 import ProfileEditDialog from './profile-edit-dialog'
@@ -26,6 +27,14 @@ export default async function ProfileContent() {
       </div>
     )
   }
+
+  const validUntil = new Date(user.createdAt)
+  validUntil.setFullYear(validUntil.getFullYear() + 2)
+
+  const validUntilLabel = validUntil.toLocaleDateString('en-US', {
+    month: 'long',
+    year: 'numeric',
+  })
 
   return (
     <div className="space-y-8">
@@ -69,6 +78,19 @@ export default async function ProfileContent() {
           createdAt: user.createdAt,
         }}
       />
+      {user.membershipId && (
+        <IdCardDownload
+          name={user.name ?? ''}
+          membershipId={user.membershipId ?? ''}
+          department={user.department ?? ''}
+          email={user.email ?? ''}
+          phone={user.phoneNumber ?? ''}
+          bloodGroup="N/A"
+          photoUrl={user.image ?? ''}
+          validUntil={validUntilLabel}
+          logoUrl="/LogoP.png"
+        />
+      )}
     </div>
   )
 }
