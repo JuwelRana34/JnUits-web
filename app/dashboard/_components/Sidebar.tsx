@@ -41,6 +41,11 @@ const sidebarLinks = [
     href: '/dashboard/manageCoupon',
     icon: Ticket,
   },
+  {
+    name: 'Bcc certificate Upload',
+    href: '/dashboard/certificate-upload',
+    icon: Ticket,
+  },
 ]
 
 interface SidebarProps {

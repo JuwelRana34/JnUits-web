@@ -332,3 +332,17 @@ model CouponUsage {
   @@unique([couponId, email])  
   @@map("coupon_usages")
 }
+
+
+model Certificate {
+ id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  certId          String   @unique
+  studentName     String
+  examName        String   
+  phoneNumber       String?
+  email             String?
+  
+  isRevoked       Boolean  @default(false) 
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
