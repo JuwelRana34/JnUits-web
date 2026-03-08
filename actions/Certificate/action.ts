@@ -6,7 +6,8 @@ export type CertificateResult = {
   success: boolean
   data?: {
     studentName: string
-    examName: string
+    EventsName: string
+    passedWithMerit: boolean
     createdAt: Date
   }
   error?: string
@@ -26,7 +27,8 @@ export async function verifyCertificateAction(
       },
       select: {
         studentName: true,
-        examName: true,
+        EventsName: true,
+        passedWithMerit: true,
         createdAt: true,
       },
     })
@@ -48,9 +50,10 @@ export async function verifyCertificateAction(
 export type BulkUploadDataType = {
   certId: string
   studentName: string
-  examName: string
+  EventsName: string
   phoneNumber?: string
   email?: string
+  passedWithMerit?: boolean
 }
 
 export async function bulkUploadCertificates(data: BulkUploadDataType[]) {
@@ -63,9 +66,12 @@ export async function bulkUploadCertificates(data: BulkUploadDataType[]) {
       data: data.map((item) => ({
         certId: item.certId.toUpperCase().trim(),
         studentName: item.studentName.trim(),
-        examName: item.examName.trim(),
+        EventsName: item.EventsName.trim(),
         phoneNumber: item.phoneNumber?.trim() || null,
         email: item.email?.toLowerCase().trim() || null,
+        passedWithMerit:
+          item.passedWithMerit === true ||
+          String(item.passedWithMerit).toLowerCase() === 'true',
         isRevoked: false,
       })),
     })

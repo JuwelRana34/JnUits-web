@@ -338,11 +338,14 @@ model Certificate {
  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   certId          String   @unique
   studentName     String
-  examName        String   
+  EventsName        String   
   phoneNumber       String?
   email             String?
+  passedWithMerit   Boolean  @default(false)
   
   isRevoked       Boolean  @default(false) 
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+
+  @@map("certificates")
 }

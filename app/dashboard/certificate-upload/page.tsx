@@ -31,7 +31,7 @@ import { Input } from '@/components/ui/input'
 const REQUIRED_COLUMNS: (keyof BulkUploadDataType)[] = [
   'certId',
   'studentName',
-  'examName',
+  'EventsName',
   'phoneNumber',
   'email',
 ]
@@ -372,7 +372,7 @@ function StatusBanner({
       <div className="min-w-0 flex-1">
         <p className="text-sm font-semibold">{message.title}</p>
         {message.detail && (
-          <p className="mt-0.5 text-xs break-words opacity-80">
+          <p className="wrap-break-words mt-0.5 text-xs opacity-80">
             {message.detail}
           </p>
         )}

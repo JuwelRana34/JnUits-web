@@ -238,7 +238,8 @@ import { Separator } from '@/components/ui/separator'
 
 interface CertificateData {
   studentName: string
-  examName: string
+  EventsName: string
+  passedWithMerit: boolean
   createdAt: Date | string
 }
 
@@ -269,18 +270,30 @@ const ResultArea = ({
         <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 p-4">
           <div className="mb-2 flex items-center gap-3 font-semibold text-emerald-700">
             <CheckCircle2 className="h-5 w-5" />
-            Valid Credential
+            Valid Documents
           </div>
-          <p className="text-sm leading-relaxed text-emerald-800/80">
-            <span className="font-bold text-emerald-900">
-              {data.studentName}
-            </span>{' '}
-            has successfully completed the{' '}
-            <span className="font-medium text-emerald-900">
-              {data.examName}
-            </span>{' '}
-            with <Badge className="ml-1 h-5 bg-yellow-600">Merit</Badge>
-          </p>
+          {data.passedWithMerit ? (
+            <p className="text-sm leading-relaxed text-emerald-800/80">
+              <span className="font-bold text-emerald-900">
+                {data.studentName}
+              </span>{' '}
+              Has successfully completed the{' '}
+              <span className="font-medium text-emerald-900">
+                {data.EventsName}
+              </span>{' '}
+              with <Badge className="ml-1 h-5 bg-yellow-600">Merit</Badge>
+            </p>
+          ) : (
+            <p className="text-sm leading-relaxed text-emerald-800/80">
+              <span className="font-bold text-emerald-900">
+                {data.studentName}
+              </span>{' '}
+              Successfully Participated the{' '}
+              <span className="font-medium text-emerald-900">
+                {data.EventsName}
+              </span>
+            </p>
+          )}
         </div>
         <div className="space-y-3">
           <DetailRow
@@ -290,8 +303,8 @@ const ResultArea = ({
           />
           <DetailRow
             icon={<Award className="text-primary h-4 w-4" />}
-            label="Course Name"
-            value={data.examName}
+            label="Course/Event"
+            value={data.EventsName}
           />
           <DetailRow
             icon={<Calendar className="text-primary h-4 w-4" />}
@@ -412,7 +425,7 @@ const VerifyContent = () => {
         <div className="bg-primary/10 mx-auto mb-2 flex h-16 w-16 items-center justify-center rounded-full shadow-inner">
           <ShieldCheck className="text-primary h-10 w-10" />
         </div>
-        <CardTitle className="bg-gradient-to-r from-green-500 to-blue-500 bg-clip-text text-2xl font-bold tracking-tight text-transparent">
+        <CardTitle className="bg-linear-to-r from-green-500 to-blue-500 bg-clip-text text-2xl font-bold tracking-tight text-transparent">
           Certificate Verification
         </CardTitle>
         <CardDescription className="text-muted-foreground">
