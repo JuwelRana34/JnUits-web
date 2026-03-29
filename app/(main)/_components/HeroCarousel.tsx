@@ -55,14 +55,15 @@ export function HeroCarousel() {
         <CarouselContent>
           {slides.map((slide) => (
             <CarouselItem key={slide.id}>
-              <div className="relative h-[60vh] min-h-125 w-full overflow-hidden md:h-[80vh]">
+              <div className="relative w-full aspect-[4/3] sm:aspect-video md:aspect-[21/9] overflow-hidden shadow-lg">
                 {/* Background Image */}
                 <Image
                   src={slide.image}
                   alt={slide.title}
-                  width={500}
-                  height={500}
-                  className="absolute inset-0 h-full w-full object-cover"
+                fill
+        sizes="(max-width: 768px) 100vw, 100vw"
+        priority={true}
+        className="object-cover"
                 />
 
                 {/* Gradient Overlay */}
