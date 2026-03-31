@@ -168,11 +168,41 @@ export function RegistrationsModal({
     (g) => statusFilter === 'ALL' || g.status === statusFilter
   )
   // ─── UI RENDERERS ───────────────────────────────────────────────────────
+// ─── UI RENDERERS ───────────────────────────────────────────────────────
   const renderPaymentDetails = (
     payments: PaymentInfo[],
     metadata?: RegistrationMetadata | null
   ) => {
+    // প্রথমেই কুপন চেক করে নিচ্ছি
+    const usedCoupon = metadata?.coupon || metadata?.couponCode
+
+    // ১. যদি পেমেন্ট না থাকে
     if (!payments || payments.length === 0) {
+      // কিন্তু যদি কুপন ব্যবহার করে ফ্রি রেজিস্ট্রেশন করে থাকে
+      if (usedCoupon) {
+        return (
+          <div className="bg-muted/30 flex flex-col rounded-md border p-2 text-sm">
+            <div className="flex justify-between gap-4">
+              <span className="text-muted-foreground">Main Fee:</span>
+              <span className="text-muted-foreground line-through">৳{baseFee}</span>
+            </div>
+            <div className="flex justify-between gap-4 text-emerald-600 dark:text-emerald-400">
+              <span>Discount:</span>
+              <span>-৳{baseFee}</span>
+            </div>
+            <div className="mt-1 flex justify-between gap-4 border-t pt-1 font-semibold">
+              <span>Paid:</span>
+              <span>৳0</span>
+            </div>
+            <div className="mt-2 flex w-fit items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
+              <Ticket className="h-3 w-3" />
+              <span>{usedCoupon}</span>
+            </div>
+          </div>
+        )
+      }
+
+      // কুপনও নেই, পেমেন্টও নেই
       return (
         <div className="flex flex-col text-sm">
           <span className="text-muted-foreground font-medium">
@@ -185,13 +215,11 @@ export function RegistrationsModal({
       )
     }
 
+    // ২. যদি আংশিক বা সম্পূর্ণ পেমেন্ট থাকে
     const payment = payments[0]
     const paidAmount = parseInt(payment.amount) || 0
     const discountApplied =
       baseFee > 0 && paidAmount < baseFee ? baseFee - paidAmount : 0
-
-    // Assuming you store the used coupon code in metadata like: { coupon: "WINTER50" }
-    const usedCoupon = metadata?.coupon || metadata?.couponCode
 
     return (
       <div className="bg-muted/30 flex flex-col rounded-md border p-2 text-sm">
@@ -229,7 +257,7 @@ export function RegistrationsModal({
               href={metadata.screenshotUrl as string}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-1 text-xs text-blue-600 hover:underline"
+              className="ml-1 mt-1 text-xs text-blue-600 hover:underline"
             >
               View Screenshot
             </Link>

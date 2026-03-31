@@ -267,7 +267,8 @@ export default function RegisterButton({ event }: { event: IEvent }) {
       isFree: isFreeAfterCoupon,
     }).safeParse({
       ...formData,
-      provider: event.isPaid ? formData.provider : undefined,
+      provider: (event.isPaid && !isFreeAfterCoupon) ? (formData.provider || undefined) : undefined,
+      trxId: (event.isPaid && !isFreeAfterCoupon) ? (formData.trxId || undefined) : undefined,
       gender: isBCC ? formData.gender : undefined,
       facebook:
         isBCC && formData.facebook.trim() ? formData.facebook : undefined,
@@ -311,26 +312,33 @@ export default function RegisterButton({ event }: { event: IEvent }) {
             }
           : {}
 
-        const response = await registerForEvent({
+     const response = await registerForEvent({
           isGuest,
           eventId: event.id,
           userId: user?.id,
           name: formData.name,
           email: formData.email,
           phone: formData.phone || undefined,
-          trxId: formData.trxId || undefined,
-          provider: formData.provider || undefined,
+          // Fix: API তেও যেন কুপন ব্যালেন্স 0 হলে trxId এবং provider না যায়
+          trxId: (event.isPaid && !isFreeAfterCoupon) ? formData.trxId || undefined : undefined,
+          provider: (event.isPaid && !isFreeAfterCoupon) ? formData.provider || undefined : undefined,
           isPaid: Boolean(event.isPaid),
           fee: Number(event.fee) || 0,
           isBCC,
-          coupon: appliedCoupon ? formData.coupon : undefined, // ✅ applied হলেই পাঠাবে
+          coupon: appliedCoupon ? formData.coupon : undefined,
           screenshotUrl,
           ...bccFields,
         })
 
         if (response.success) {
-          setView('success')
-          if (!isGuest) setTimeout(() => router.push('/profile'), 3000)
+         setView('success')
+          setTimeout(() => {
+            handleOpenChange(false)
+            
+            if (!isGuest) {
+              router.push('/profile')
+            }
+          }, 3000)
         } else {
           if (screenshotUrl) {
             await deleteImageAction(screenshotUrl)
