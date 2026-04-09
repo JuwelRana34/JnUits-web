@@ -6,9 +6,9 @@ import { TopMembersWraper } from './TopMembersWraper'
 
 export async function TopMembersMainComponent() {
   return (
-    <section className="bg-white py-24 dark:bg-slate-950">
+    <section className="bg-white py-12 dark:bg-slate-950">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative mb-16 flex flex-col items-center text-center">
+        <div className="relative mb-8 flex flex-col items-center text-center">
           <div className="mb-4 inline-flex items-center rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3 py-1 text-xs font-semibold tracking-wide text-cyan-600 uppercase dark:text-cyan-400">
             <Trophy className="mx-2 mr-1 h-6 w-6" /> Top Contributors
           </div>

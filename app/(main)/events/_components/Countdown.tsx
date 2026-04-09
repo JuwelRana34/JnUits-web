@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 export default function Countdown({ deadline }: { deadline: string | Date }) {
   const [timeLeft, setTimeLeft] = useState<{
@@ -41,10 +41,20 @@ export default function Countdown({ deadline }: { deadline: string | Date }) {
     )
 
   return (
-    <>
-      <h1 className="inline-block animate-pulse text-rose-500">
-        Registration Time left:
+    <div className="flex flex-col items-center gap-4">
+      <h1 
+        className="
+          text-center text-lg font-extrabold uppercase tracking-widest 
+
+          text-transparent bg-clip-text    
+          bg-gradient-to-r from-rose-500 from-[40%] via-rose-100 via-[50%] to-rose-500 to-[60%]
+          bg-[size:300%_auto] 
+          animate-shine                    
+        "
+      >
+        Registration Time Left:
       </h1>
+
       <div className="flex justify-center gap-2 rounded py-2 text-center">
         {[
           { label: 'D', value: timeLeft.days },
@@ -54,17 +64,17 @@ export default function Countdown({ deadline }: { deadline: string | Date }) {
         ].map((item, i) => (
           <div
             key={i}
-            className="min-w-8.7 flex flex-col rounded border border-emerald-400/50 bg-blue-100 px-2 py-1 shadow-2xl shadow-blue-500"
+            className="min-w-[4rem] flex flex-col items-center rounded border border-slate-400/50 bg-slate-700 px-2 py-1 shadow-md shadow-blue-500/20"
           >
-            <span className="text-sm leading-tight font-bold text-blue-600">
+            <span className="text-sm leading-tight font-bold text-slate-200">
               {item.value}
             </span>
-            <span className="text-[10px] text-neutral-600 uppercase">
+            <span className="text-[10px] text-slate-200 uppercase">
               {item.label}
             </span>
           </div>
         ))}
       </div>
-    </>
+    </div>
   )
 }

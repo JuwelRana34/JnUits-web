@@ -37,15 +37,15 @@ export function FeaturesSection() {
   ]
 
   return (
-    <section className="bg-slate-50 py-24 dark:bg-slate-900/50">
+    <section className="bg-slate-50 py-10 dark:bg-slate-900/50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
-          <h2 className="mb-16 text-center text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
+        <div className="mb-8 text-center">
+          <h2 className="mb-8 text-center text-3xl font-extrabold tracking-tight  sm:text-4xl dark:text-white">
             Empowering the Next Generation
           </h2>
         </div>
 
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+        <div className="mx-auto mt-8 max-w-2xl sm:mt-10 lg:mt-12 lg:max-w-none">
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-4">
             {features.map((feature) => (
               <div

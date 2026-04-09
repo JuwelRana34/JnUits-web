@@ -76,17 +76,32 @@
     }
   }
 
-
   /* for topMembers */
   --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
- 
+
   @keyframes scroll {
     to {
       transform: translate(calc(-50% - 0.5rem));
     }
   }
 
-}
+--animate-shine: shine 4s linear infinite;
+
+  @keyframes shine {
+    0% {
+      background-position: 100% center;
+    }
+    60% {
+      background-position: 0% center;
+    }
+    100% {
+      background-position: 0% center; /* থামার সময় কোনো সাদা দাগ থাকবে না */
+    }
+  }
+
+
+  }
+
 
 :root {
   --radius: 0.5rem;
@@ -213,11 +228,11 @@ div.prose pre {
     oklch(52.636% 0.25994 267.86 / 0.95), 
     oklch(79.122% 0.10503 269.573 / 0.95)
   ) !important;
-  
+
   /* Modern Glow Shadow */
   box-shadow: 0 10px 30px -10px oklch(54.6% 0.245 262.881 / 30%), 
               0 0 15px 0 oklch(54.6% 0.245 262.881 / 10%) !important;
-  
+
   color: #ffffff !important;
   padding: 0.30rem 0.50rem !important;
   width: fit-content; 
@@ -256,7 +271,6 @@ div.prose pre::-webkit-scrollbar-thumb {
 .dark .prose code {
   background-color: #1f2937;
 }
-
 
 .prose pre code {
   background: none;

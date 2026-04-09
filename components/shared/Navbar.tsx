@@ -176,7 +176,7 @@ export default function Navbar() {
             height={90}
             className="h-15 w-15"
           />
-          <span className="hidden bg-linear-to-r from-blue-600 to-green-600 bg-clip-text text-xl font-extrabold text-transparent sm:block">
+          <span className="hidden bg-linear-to-r from-blue-600 to-blue-400 bg-clip-text text-xl font-extrabold text-transparent sm:block">
             JnU IT Society
           </span>
         </Link>
