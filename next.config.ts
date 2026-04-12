@@ -27,6 +27,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+
+  serverExternalPackages: ['sslcommerz-lts'],
 }
 
 export default nextConfig

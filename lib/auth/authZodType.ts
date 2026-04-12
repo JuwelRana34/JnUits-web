@@ -8,9 +8,9 @@ export const registerSchema = z
     studentId: z
       .string()
       .trim()
-      .regex(/^B\d{9}$/, {
+      .regex(/^[BM]\d{9}$/, {
         message:
-          "Student ID must start with 'B' followed by 9 digits (e.g., B220104032)",
+          "Student ID must start with 'B' or 'M' followed by 9 digits (e.g., B220104032 or M220104032)",
       }),
 
     phoneNumber: z

@@ -163,7 +163,7 @@ export default function Navbar() {
     <header
       className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${
         isScrolled
-          ? 'border-gray-200 bg-white/80 shadow-sm backdrop-blur-md'
+          ? 'border-gray-200 bg-white/90 shadow-sm backdrop-blur-lg'
           : 'border-transparent bg-white/50 backdrop-blur-sm'
       }`}
     >
@@ -176,12 +176,12 @@ export default function Navbar() {
             height={90}
             className="h-15 w-15"
           />
-          <span className="hidden bg-linear-to-r from-blue-600 to-blue-400 bg-clip-text text-xl font-extrabold text-transparent sm:block">
+          <span className="bg-linear-to-r from-blue-600 to-blue-400 bg-clip-text text-xl font-extrabold text-transparent">
             JnU IT Society
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-2 lg:flex">
+        <nav className="hidden items-center gap-2 xl:flex">
           {NavItems.map((item) => {
             if (item.type === 'dropdown') {
               return (
@@ -189,7 +189,7 @@ export default function Navbar() {
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="ghost"
-                      className={`group flex items-center gap-1 text-sm font-medium transition-all duration-200 ${
+                      className={`group flex items-center gap-1 text-xs font-medium transition-all duration-200 ${
                         item.children.some((child) => isActive(child.href))
                           ? 'bg-blue-600 text-white shadow-md hover:bg-blue-700 hover:text-white'
                           : 'text-gray-600 hover:bg-gray-100'
@@ -250,7 +250,7 @@ export default function Navbar() {
               {isAdmin && (
                 <Link href="/dashboard" prefetch={false}>
                   <Button
-                    className="bg-linear-to-br from-blue-500 to-violet-500"
+                    className="bg-linear-to-br from-blue-500 to-violet-500 text-white"
                     size="sm"
                   >
                     Admin panel
@@ -286,7 +286,7 @@ export default function Navbar() {
         {/* --- MOBILE MENU --- */}
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="lg:hidden">
+            <Button variant="ghost" size="icon" className="xl:hidden">
               <Menu className="h-6 w-6 text-gray-700" />
             </Button>
           </SheetTrigger>

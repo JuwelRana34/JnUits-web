@@ -7,7 +7,7 @@ import {
   revalidateTag,
   updateTag,
 } from 'next/cache'
-
+import { connection } from 'next/server'
 import { Prisma, RegistrationType } from '@prisma/client'
 
 import { verifyAdminAccess } from '@/lib/VerifyAdmin'
@@ -186,50 +186,6 @@ export async function updateEvent(
     return { success: false, error: 'Failed to update event.' }
   }
 }
-
-// ─── Delete Event (Registrations + Payments Included) ─────────────────────────
-// export async function deleteEventWithData(id: string) {
-//   await verifyAdminAccess()
-
-//   try {
-//     // Step 1: Count for archive
-//     const [memberCount, guestCount] = await Promise.all([
-//       prisma.registration.count({ where: { eventId: id } }),
-//       prisma.guestRegistration.count({ where: { eventId: id } }),
-//     ])
-
-//     const totalApplicants = memberCount + guestCount
-
-//     // Step 2: Extract IDs to delete payments
-//     const memberRegs = await prisma.registration.findMany({
-//       where: { eventId: id },
-//       select: { id: true },
-//     })
-//     const memberRegIds = memberRegs.map((r) => r.id)
-
-//     const guestRegs = await prisma.guestRegistration.findMany({
-//       where: { eventId: id },
-//       select: { id: true },
-//     })
-//     const guestRegIds = guestRegs.map((r) => r.id)
-
-//     // Step 3: Transactional Delete
-//     await prisma.$transaction([
-//       prisma.payment.deleteMany({ where: { registrationId: { in: memberRegIds } } }),
-//       prisma.guestPayment.deleteMany({ where: { guestRegistrationId: { in: guestRegIds } } }),
-//       prisma.registration.deleteMany({ where: { eventId: id } }),
-//       prisma.guestRegistration.deleteMany({ where: { eventId: id } }),
-//       prisma.coupon.updateMany({ where: { eventId: id }, data: { eventId: null } }),
-//       prisma.event.delete({ where: { id } }),
-//     ])
-
-//     updateTag("all-events")
-//     return { success: true, totalApplicants }
-//   } catch (error) {
-//     console.error('[deleteEventWithData]', error)
-//     return { success: false, error: 'Failed to delete event.' }
-//   }
-// }
 
 export async function archiveEvent(id: string) {
   await verifyAdminAccess()
@@ -424,5 +380,37 @@ export async function updateRegistrationStatus(
   } catch (error) {
     console.error('[updateRegistrationStatus]', error)
     return { success: false, error: 'Failed to update registration.' }
+  }
+}
+
+
+
+// ─── Get Only Ongoing (Active) Events ────────────────────────────────────────
+export async function getOngoingEvents() {
+  await connection()
+  try {
+    const ongoingEvents = await prisma.event.findMany({
+      where: {
+        isActive: true, 
+        deadline: {
+          gte: new Date(),
+        },
+      },
+      orderBy: {
+        deadline: 'asc',
+      },
+    })
+
+    return {
+      success: true,
+      events: ongoingEvents,
+    }
+  } catch (error) {
+    console.error('[getOngoingEvents]', error)
+    return {
+      success: false,
+      error: 'Failed to fetch ongoing events.',
+      events: [],
+    }
   }
 }

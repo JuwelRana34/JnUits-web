@@ -8,6 +8,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card'
 
 import Countdown from './Countdown'
 import RegisterButton from './RegisterButton'
+import SSLPAY from './SSLPAY'
 
 export interface IEvent {
   id: string
@@ -22,10 +23,13 @@ export interface IEvent {
 }
 
 export default function EventCard({ event }: { event: IEvent }) {
+
+
+
   return (
     <Card className="group flex h-full flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950 py-0 gap-3">
       {/* 1. Responsive Image Container */}
-      <div className="relative aspect-[16/9] w-full shrink-0 overflow-hidden sm:aspect-[4/3] lg:aspect-[16/9]">
+      <div className="relative aspect-video w-full shrink-0 overflow-hidden sm:aspect-4/3 lg:aspect-video">
         <Image
           src={event.image}
           alt={event.title}
@@ -34,7 +38,7 @@ export default function EventCard({ event }: { event: IEvent }) {
         />
         
         {/* Subtle dark gradient overlay to make the image look premium */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         
         <div className="absolute right-3 top-3 z-10">
           <Badge 
@@ -69,12 +73,11 @@ export default function EventCard({ event }: { event: IEvent }) {
         </div>
 
         {/* Description */}
-        <div
+        {/* <div
           className="prose prose-sm mb-6 line-clamp-2 text-neutral-500 dark:text-neutral-400"
           dangerouslySetInnerHTML={{ __html: event.description }}
-        />
+        /> */}
 
-        {/* mt-auto pushes the countdown to the bottom of the content area if description is short */}
         <div className="mt-auto">
           <Countdown deadline={event.deadline} />
         </div>
@@ -96,6 +99,7 @@ export default function EventCard({ event }: { event: IEvent }) {
           }
         >
           <div className="w-full">
+            {/* <SSLPAY title={event.title} id={event.id} /> */}
              <RegisterButton event={event} />
           </div>
         </Suspense>
