@@ -119,7 +119,7 @@ export async function ONgoingSection() {
         x={-1}
         y={-1}
         className={cn(
-          'z-0 [mask-image:linear-gradient(to_bottom_right,white,transparent)]'
+          'z-0 md:mask-x-from-90% md:mask-x-to-95%'
         )}
       />
 
@@ -131,7 +131,7 @@ export async function ONgoingSection() {
       </div>
 
       {/* Events Grid Section */}
-      <div className="relative z-10 mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-5 px-4">
+      <div className="relative z-10 mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-5 px-1">
         {displayEvents.length > 0 ? (
           displayEvents.map((event) => (
             <div key={event.id} className="flex justify-center w-full sm:w-auto">
