@@ -386,34 +386,6 @@ export async function updateRegistrationStatus(
 
 
 // ─── Get Only Ongoing (Active) Events ────────────────────────────────────────
-// export async function getOngoingEvents() {
-//   await connection()
-//   try {
-//     const ongoingEvents = await prisma.event.findMany({
-//       where: {
-//         isActive: true, 
-//         deadline: {
-//           gte: new Date(),
-//         },
-//       },
-//       orderBy: {
-//         deadline: 'asc',
-//       },
-//     })
-
-//     return {
-//       success: true,
-//       events: ongoingEvents,
-//     }
-//   } catch (error) {
-//     console.error('[getOngoingEvents]', error)
-//     return {
-//       success: false,
-//       error: 'Failed to fetch ongoing events.',
-//       events: [],
-//     }
-//   }
-// }
 
 
 export async function getOngoingEvents() {

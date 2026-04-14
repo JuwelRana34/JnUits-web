@@ -32,7 +32,7 @@ export interface EventProps {
   deadline: Date | string
   isFeatured: boolean
   isPublic: boolean
-  totalApplicants: number
+  TotalApplicants: number
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -95,7 +95,7 @@ export function OngoingEventCard({ event }: OngoingEventCardProps) {
     isClient && daysLeft > 0 && daysLeft <= URGENCY_THRESHOLD_DAYS
 
   return (
-    <Card className="group border-border dark:hover:shadow-primary/5 flex w-full max-w-lg flex-col overflow-hidden rounded-xl border pt-0 transition-all duration-300 hover:shadow-xl">
+    <Card className="group border-border dark:hover:shadow-primary/5 flex w-full h-full flex-col overflow-hidden rounded-xl border pt-0 transition-all duration-300 hover:shadow-xl">
       {/* Image */}
       <div className="relative aspect-video w-full overflow-hidden">
         <CldImage
@@ -151,7 +151,7 @@ export function OngoingEventCard({ event }: OngoingEventCardProps) {
               <Users className="text-primary h-4 w-4" />
               <span>
                 <span className="text-foreground">
-                  {event.totalApplicants}+
+                  {event.TotalApplicants}+
                 </span>{' '}
                 Applied
               </span>
