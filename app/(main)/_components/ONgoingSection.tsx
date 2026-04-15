@@ -27,7 +27,7 @@ export async function ONgoingSection() {
       {/* Header Section */}
       <div className="my-8 flex items-center justify-center gap-1 relative z-10">
         <div className="h-1 w-14 bg-linear-to-l from-cyan-500 to-transparent" />
-        <AuroraText className='ext-2xl font-bold md:text-4xl'>Ongoing Events</AuroraText> 
+        <AuroraText className='text-2xl font-bold md:text-4xl'>Ongoing Events</AuroraText> 
         <div className="h-1 w-14 bg-linear-to-r from-cyan-500 to-transparent" />
       </div>
 
