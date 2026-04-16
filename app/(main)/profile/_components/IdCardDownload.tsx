@@ -616,7 +616,7 @@ export default function IdCardDownload(props: IdCardProps) {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-1">
           <p className="text-xs font-semibold tracking-[0.2em] text-blue-700 uppercase">
-            University Club Card
+            JnUITS ID Card
           </p>
           <h3 className="text-lg font-semibold text-slate-900">
             Download Your Membership ID
