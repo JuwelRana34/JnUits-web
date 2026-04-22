@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     siteName: "JnU ITS",
     images: [
       {
-        url:"https://res.cloudinary.com/dbwbwwteo/image/upload/v1746006142/jnu%20its/487071954_963461729311150_213539538489395892_n_nihhkj.jpg",
+        url: "https://res.cloudinary.com/dp4fgwjik/image/upload/v1776816318/WhatsApp_Image_2026-04-22_at_6.02.24_AM_hnszse.jpg",
         width: 1200,
         height: 630,
         alt: "JnU ITS Logo",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     description:
       "Join the Jagannath University IT Society (JnUITS) through our official Smart Portal. Register now to connect, learn, and grow with fellow tech professionals.",
     images: [
-      "https://res.cloudinary.com/dbwbwwteo/image/upload/v1746006142/jnu%20its/487071954_963461729311150_213539538489395892_n_nihhkj.jpg",
+      "https://res.cloudinary.com/dp4fgwjik/image/upload/v1776816318/WhatsApp_Image_2026-04-22_at_6.02.24_AM_hnszse.jpg",
     ],
   },
 };
